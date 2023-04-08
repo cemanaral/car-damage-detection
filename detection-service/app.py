@@ -1,9 +1,12 @@
 from flask import Flask, request, json
 from werkzeug.exceptions import HTTPException
-from model_detection import blueprint as model_detection_blueprint
 
 app = Flask(__name__)
+
+from model_detection import blueprint as model_detection_blueprint
+from brand_detection import blueprint as brand_detection_blueprint
 app.register_blueprint(model_detection_blueprint, url_prefix='/model')
+app.register_blueprint(brand_detection_blueprint, url_prefix='/brand')
 
 
 @app.errorhandler(HTTPException)
