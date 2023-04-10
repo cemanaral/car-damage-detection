@@ -1,4 +1,4 @@
-from flask import Blueprint, request, current_app
+from flask import Blueprint, request, current_app, jsonify
 import keras
 import numpy as np
 import cv2
@@ -6,6 +6,8 @@ import cv2
 blueprint = Blueprint('brand_detection', __name__)
 
 brand_detection_model = keras.models.load_model('models/marka-detection-2023-04-08 14_39_33.073557.h5') 
+
+car_brands = ["Ford", "Hyundai", "Toyota", "Volkswagen"]
 # brand_detection_model = None
 
 @blueprint.route('/', methods=['POST'])
@@ -28,7 +30,12 @@ def brand_detection():
     X = X /255.0
     X = X.reshape(-1,300,200,1)
 
-    print(brand_detection_model.predict(X))
-    return model_image.name
-
-
+    prediction_result = brand_detection_model.predict(X)
+    
+    print(car_brands)
+    print(prediction_result[0])
+    
+    
+    prediction_result_index = prediction_result[0].index(max(prediction_result[0])) 
+    return jsonify(result=car_brands[prediction_result_index])
+    
