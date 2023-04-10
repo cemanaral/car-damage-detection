@@ -8,7 +8,6 @@ blueprint = Blueprint('brand_detection', __name__)
 brand_detection_model = keras.models.load_model('models/marka-detection-2023-04-08 14_39_33.073557.h5') 
 
 car_brands = ["Ford", "Hyundai", "Toyota", "Volkswagen"]
-# brand_detection_model = None
 
 @blueprint.route('/', methods=['POST'])
 def brand_detection():
