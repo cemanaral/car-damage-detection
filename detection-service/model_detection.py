@@ -6,7 +6,7 @@ import cv2
 blueprint = Blueprint('model_detection', __name__)
 
 ford_model_detection_model = keras.models.load_model('models/Ford_Detection-2023-03-27 20_02_28.515633.h5')
-ford_models = ["Beetle", "Golf"]
+ford_models = ["Fiesta", "Mustang"]
 
 @blueprint.route('/ford', methods=['POST'])
 def ford_model_detection():
