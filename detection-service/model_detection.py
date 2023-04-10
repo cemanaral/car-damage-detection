@@ -12,6 +12,9 @@ ford_models = ["Fiesta", "Mustang"]
 hyundai_model_detection_model = keras.models.load_model('models/Hyundai_Detection-2023-03-27 21_09_27.955566.h5')
 hyundai_models = ["Accent", "Elentra"]
 
+volkswagen_model_detection_model = keras.models.load_model('models/Volkswagen_Detection-2023-03-27 21_56_43.286214.h5') 
+volkswagen_models = ["Beetle", "Golf"]
+
 @blueprint.route('/ford', methods=['POST'])
 def ford_model_detection():
     model_image = request.files['model_image']
@@ -30,3 +33,13 @@ def hyundai_model_detection():
     
     detector = TfDetectionWrapper(hyundai_model_detection_model, request.files['model_image'].read(), hyundai_models)
     return detector.detection_response()
+
+@blueprint.route('/volkswagen', methods=['POST'])
+def volkswagen_model_detection():
+    model_image = request.files['model_image']
+    current_app.logger.info(
+        f'file received from volkswagen model detection endpoint {model_image.__dict__}')
+    
+    detector = TfDetectionWrapper(hyundai_model_detection_model, request.files['model_image'].read(), volkswagen_models)
+    return detector.detection_response()
+
