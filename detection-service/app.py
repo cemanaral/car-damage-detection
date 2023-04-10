@@ -1,7 +1,10 @@
 from flask import Flask, request, json
+from flask_cors import CORS
+
 from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__)
+CORS(app)
 
 from model_detection import blueprint as model_detection_blueprint
 from brand_detection import blueprint as brand_detection_blueprint
@@ -25,4 +28,4 @@ def handle_exception(e):
 
 
 if __name__ == '__main__':
-    app.run(host='localhost', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=False)
