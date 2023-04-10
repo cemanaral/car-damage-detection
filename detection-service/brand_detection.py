@@ -35,7 +35,7 @@ def brand_detection():
     print(car_brands)
     print(prediction_result[0])
     
-    
-    prediction_result_index = prediction_result[0].index(max(prediction_result[0])) 
+    prediction_result_list = prediction_result[0].tolist()
+    prediction_result_index = prediction_result_list.index(max(prediction_result_list)) 
     return jsonify(result=car_brands[prediction_result_index])
     
