@@ -6,24 +6,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
-@Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-@Table(name = "car")
-public class Car {
-
+@Entity
+@Table(name = "car_part_names")
+public class CarPartName {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String brand;
-    @Column(nullable = false)
-    private String model;
-    @OneToMany(mappedBy = "car")
-    private List<CarPart> carParts;
+    private String name;
+
 }

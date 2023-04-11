@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class CarPart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name="car_id")
@@ -23,11 +23,14 @@ public class CarPart {
     @ManyToOne
     @JoinColumn(name="mechanic_id")
     private Mechanic mechanic;
-    @Column(name ="name")
-    private String part_name;
+    @ManyToOne
+    @JoinColumn(name = "car_part_id")
+    private CarPartName partName;
     @Column(nullable = false)
     private int price;
     @Column(nullable = false)
     private int laborCost;
+    @Column()
+    private byte[] photo; //Photo postman calismiyor.
 
 }
