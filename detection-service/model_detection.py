@@ -43,7 +43,7 @@ def volkswagen_model_detection():
     current_app.logger.info(
         f'file received from volkswagen model detection endpoint {model_image.__dict__}')
     
-    detector = TfDetectionWrapper(hyundai_model_detection_model, request.files['model_image'].read(), volkswagen_models)
+    detector = TfDetectionWrapper(volkswagen_model_detection_model, request.files['model_image'].read(), volkswagen_models)
     return detector.detection_response()
 
 @blueprint.route('/toyota', methods=['POST'])
