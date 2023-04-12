@@ -24,6 +24,4 @@ public class Car {
     private String brand;
     @Column(nullable = false)
     private String model;
-    @OneToMany(mappedBy = "car")
-    private List<CarPart> carParts;
 }

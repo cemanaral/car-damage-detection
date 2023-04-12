@@ -18,6 +18,7 @@ public class MechanicServiceImpl implements MechanicService {
 
     @Override
     public List<Mechanic> getAllMechanics() {
-        return mechanicRepository.findAll();
+        List<Mechanic> mechanics = mechanicRepository.findAll();
+        return mechanics;
     }
 }

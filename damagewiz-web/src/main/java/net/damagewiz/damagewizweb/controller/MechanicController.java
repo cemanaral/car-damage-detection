@@ -17,7 +17,7 @@ public class MechanicController {
     private final MechanicService mechanicService;
 
     @GetMapping()
-    public ResponseEntity<List<Mechanic>> getMechanics(){
+    public ResponseEntity<List<Mechanic>> getAllMechanics(){
         return ResponseEntity.ok(mechanicService.getAllMechanics());
     }
 

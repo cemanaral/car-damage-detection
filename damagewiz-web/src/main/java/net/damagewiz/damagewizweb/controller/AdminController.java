@@ -2,14 +2,13 @@ package net.damagewiz.damagewizweb.controller;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import net.damagewiz.damagewizweb.entity.Car;
-import net.damagewiz.damagewizweb.entity.CarPart;
-import net.damagewiz.damagewizweb.entity.CarPartName;
-import net.damagewiz.damagewizweb.entity.Mechanic;
+import net.damagewiz.damagewizweb.entity.*;
 import net.damagewiz.damagewizweb.service.AdminService;
 import net.damagewiz.damagewizweb.service.MechanicService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController{
 
     private final AdminService adminService;
+
 
     @PostMapping("/add_mechanic")
     public ResponseEntity<Mechanic> addMechanic (@RequestBody Mechanic mechanic){
@@ -35,4 +35,10 @@ public class AdminController{
     public ResponseEntity<CarPart> addCarPart(@RequestBody CarPart carPart){
         return ResponseEntity.ok(adminService.addCarPart(carPart));
     }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> getAllUsers(){
+        return ResponseEntity.ok(adminService.getAllUsers());
+    }
+
 }

@@ -24,8 +24,4 @@ public class Mechanic {
     private String name;
     @Column(nullable = false)
     private String location;
-    @OneToMany(mappedBy = "mechanic")
-    private List<CarPart> carParts;
-
-
 }

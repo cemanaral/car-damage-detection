@@ -3,15 +3,13 @@ package net.damagewiz.damagewizweb.service.impl;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import net.damagewiz.damagewizweb.entity.Car;
-import net.damagewiz.damagewizweb.entity.CarPart;
-import net.damagewiz.damagewizweb.entity.CarPartName;
-import net.damagewiz.damagewizweb.entity.Mechanic;
-import net.damagewiz.damagewizweb.repository.CarPartRepository;
-import net.damagewiz.damagewizweb.repository.MechanicRepository;
+import net.damagewiz.damagewizweb.entity.*;
+import net.damagewiz.damagewizweb.repository.*;
 import net.damagewiz.damagewizweb.service.AdminService;
 import net.damagewiz.damagewizweb.service.MechanicService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +17,9 @@ public class AdminServiceImpl implements AdminService {
 
     private final MechanicRepository mechanicRepository;
     private final CarPartRepository carPartRepository;
+    private final UserRepository userRepository;
+    private final CarRepository carRepository;
+    private final CarPartNameRepository carPartNameRepository;
 
     @Override
     public Mechanic addMechanic(Mechanic mechanic) {
@@ -67,4 +68,10 @@ public class AdminServiceImpl implements AdminService {
             return null;
         }
     }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
 }

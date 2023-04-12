@@ -1,9 +1,8 @@
 package net.damagewiz.damagewizweb.service;
 
-import net.damagewiz.damagewizweb.entity.Car;
-import net.damagewiz.damagewizweb.entity.CarPart;
-import net.damagewiz.damagewizweb.entity.CarPartName;
-import net.damagewiz.damagewizweb.entity.Mechanic;
+import net.damagewiz.damagewizweb.entity.*;
+
+import java.util.List;
 
 public interface AdminService {
 
@@ -12,4 +11,5 @@ public interface AdminService {
     String deleteMechanic(Long id);
 
     CarPart addCarPart(CarPart carPart);
+    List<User> getAllUsers();
 }
