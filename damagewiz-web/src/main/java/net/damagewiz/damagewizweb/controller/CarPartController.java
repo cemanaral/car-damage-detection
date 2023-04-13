@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/carpart")
+@RequestMapping("/car_part")
 public class CarPartController {
 
     private final CarPartService carPartService;
@@ -28,5 +28,10 @@ public class CarPartController {
     @GetMapping("/{mechanic_id}")
     public ResponseEntity<List<CarPart>> getCarPartsByMechanicId(@PathVariable Long mechanic_id){
         return ResponseEntity.ok(carPartService.getCarPartsByMechanicId(mechanic_id));
+    }
+
+    @GetMapping("/{car_id}/{part_id}")
+    public ResponseEntity<List<CarPart>> getCarPartsByPythonAPI(@PathVariable Long car_id, @PathVariable Long part_id){
+        return ResponseEntity.ok(carPartService.getCarPartsFromPythonAPI(car_id,part_id));
     }
 }

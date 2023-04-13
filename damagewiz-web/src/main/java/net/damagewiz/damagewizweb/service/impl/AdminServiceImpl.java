@@ -1,14 +1,10 @@
 package net.damagewiz.damagewizweb.service.impl;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import net.damagewiz.damagewizweb.entity.*;
 import net.damagewiz.damagewizweb.repository.*;
 import net.damagewiz.damagewizweb.service.AdminService;
-import net.damagewiz.damagewizweb.service.MechanicService;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -18,12 +14,11 @@ public class AdminServiceImpl implements AdminService {
     private final MechanicRepository mechanicRepository;
     private final CarPartRepository carPartRepository;
     private final UserRepository userRepository;
-    private final CarRepository carRepository;
-    private final CarPartNameRepository carPartNameRepository;
 
     @Override
     public Mechanic addMechanic(Mechanic mechanic) {
-        if(mechanic.getLocation() != null && mechanic.getName() != null){
+        if(mechanic.getLatitude() != null && mechanic.getLongitude() != null && mechanic.getName() != null
+        && mechanic.getPhoneNumber() != null){
             mechanicRepository.save(mechanic);
             return mechanic;
         }
@@ -37,9 +32,12 @@ public class AdminServiceImpl implements AdminService {
     public Mechanic updateMechanic(Mechanic mechanic) {
         Mechanic existingMechanic = mechanicRepository.findById(mechanic.getId()).get();
 
-        if(mechanic.getName() != null && mechanic.getLocation() != null) {
+        if(mechanic.getName() != null && mechanic.getLatitude() != null && mechanic.getLongitude() != null
+        && mechanic.getPhoneNumber() != null) {
             existingMechanic.setName(mechanic.getName());
-            existingMechanic.setLocation(mechanic.getLocation());
+            existingMechanic.setLatitude(mechanic.getLatitude());
+            existingMechanic.setLongitude(mechanic.getLongitude());
+            existingMechanic.setPhoneNumber(mechanic.getPhoneNumber());
             mechanicRepository.save(existingMechanic);
             return existingMechanic;
         }
@@ -52,6 +50,13 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public String deleteMechanic(Long id) {
         Mechanic deletedMechanic = mechanicRepository.findById(id).get();
+        List<CarPart> allCarParts = carPartRepository.findAll();
+
+        for(CarPart carPart: allCarParts){
+            if(carPart.getMechanic().getId() == id){
+                carPartRepository.deleteById(carPart.getId());
+            }
+        }
         mechanicRepository.deleteById(id);
         return deletedMechanic.getName() + "is deleted successfully";
     }
@@ -68,6 +73,34 @@ public class AdminServiceImpl implements AdminService {
             return null;
         }
     }
+
+    @Override
+    public CarPart updateCarPart(CarPart carPart) {
+        CarPart existingCarPart = carPartRepository.findById(carPart.getId()).get();
+        if(carPart.getCar() != null && carPart.getPartName() != null
+                && carPart.getPrice() > 0 && carPart.getLaborCost() >= 0 && carPart.getMechanic() != null){
+            existingCarPart.setMechanic(carPart.getMechanic());
+            existingCarPart.setCar(carPart.getCar());
+            existingCarPart.setPartName(carPart.getPartName());
+            existingCarPart.setPhoto(carPart.getPhoto());
+            existingCarPart.setLaborCost(carPart.getLaborCost());
+            existingCarPart.setPrice(carPart.getPrice());
+            carPartRepository.save(existingCarPart);
+            return existingCarPart;
+        }
+        else{
+            return null;
+        }
+    }
+
+    @Override
+    public String deleteCarPart(Long id) {
+        CarPart deletedCarPart = carPartRepository.findById(id).get();
+        carPartRepository.deleteById(id);
+        return deletedCarPart.getPartName().getName() + " of " + deletedCarPart.getCar().getBrand()
+                + " " + deletedCarPart.getCar().getModel()+ " is deleted successfully!";
+    }
+
 
     @Override
     public List<User> getAllUsers() {

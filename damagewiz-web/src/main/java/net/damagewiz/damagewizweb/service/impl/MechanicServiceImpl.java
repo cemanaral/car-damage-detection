@@ -1,6 +1,4 @@
 package net.damagewiz.damagewizweb.service.impl;
-
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import net.damagewiz.damagewizweb.entity.Mechanic;
 import net.damagewiz.damagewizweb.repository.MechanicRepository;

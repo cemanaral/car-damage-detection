@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,5 +21,9 @@ public class Mechanic {
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
-    private String location;
+    private String latitude; //Enlem
+    @Column(nullable = false)
+    private String longitude; //Boylam
+    @Column(nullable = false)
+    private String phoneNumber;
 }

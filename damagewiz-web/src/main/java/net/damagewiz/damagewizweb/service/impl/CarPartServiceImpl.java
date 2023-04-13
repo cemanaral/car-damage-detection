@@ -23,7 +23,6 @@ public class CarPartServiceImpl implements CarPartService {
     @Override
     public List<CarPart> getAllCarParts() {
         List<CarPart> carPartList = carPartRepository.findAll();
-        System.out.println(carPartList);
         return carPartList;
     }
 
@@ -42,7 +41,14 @@ public class CarPartServiceImpl implements CarPartService {
 
     @Override
     public List<CarPart> getCarPartsFromPythonAPI(Long carId, Long partId) {
+            List<CarPart> allCarParts = carPartRepository.findAll();
+            List<CarPart> listedParts = new ArrayList<>();
+            for(CarPart carPart: allCarParts){
+                if(carPart.getCar().getId() == carId && carPart.getPartName().getId() == partId){
+                    listedParts.add(carPart);
+                }
+            }
 
-        return null;
+        return listedParts;
     }
 }
