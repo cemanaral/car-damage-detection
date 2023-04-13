@@ -1,0 +1,16 @@
+@tailwind base;
+@import "./custom-base-styles.css";
+
+@tailwind components;
+@import "./custom-components.css";
+
+@tailwind utilities;
+@import "./custom-utilities.css";
+
+body {
+  background: url(./assets/araba.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
