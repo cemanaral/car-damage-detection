@@ -5,6 +5,7 @@ import net.damagewiz.damagewizweb.entity.Car;
 import net.damagewiz.damagewizweb.service.CarService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,5 +21,9 @@ public class CarController {
     @GetMapping()
     public ResponseEntity<List<Car>> getAllCars(){
         return ResponseEntity.ok(carService.getAllCars());
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Car> getCar(@PathVariable Long id){
+        return ResponseEntity.ok(carService.getCar(id));
     }
 }
