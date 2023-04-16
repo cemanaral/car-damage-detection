@@ -1,20 +1,9 @@
 import { useState } from "react";
 import Register from "./Register";
 import { useNavigate } from "react-router-dom";
+// import jwtDecode from "jwt-decode";
 function Login() {
   const [login, setLogin] = useState(true);
-  const navigate = useNavigate();
-  const handleLogin = () => {
-    login ? setLogin(false) : setLogin(true);
-  };
-  const handleClick = () => {
-    if (input.email && input.password) {
-      alert("Login Successful");
-    } else {
-      alert("Please enter all the fields");
-    }
-    navigate("/start");
-  };
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -23,6 +12,38 @@ function Login() {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    login ? setLogin(false) : setLogin(true);
+  };
+
+  function handleClick() {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      email: input.email,
+      password: input.password,
+    });
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    if (input.email && input.password) {
+      fetch("http://127.0.0.1:8080/api/v1/auth/authenticate", requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
+      navigate("/start");
+    } else {
+      alert("Please enter all the fields");
+    }
+  }
+
   const onInputChange = (e) => {
     const { name, value } = e.target;
     setInput((prev) => ({
@@ -53,6 +74,7 @@ function Login() {
       return stateObj;
     });
   };
+  console.log(input.email, input.password);
   if (login) {
     return (
       <form className="xs:w-96 ml-auto mb-auto xs:mr-16 mt-20 bg-black/30 flex-column p-6 rounded-xl backdrop-blur">
