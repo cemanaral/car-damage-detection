@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 // import jwtDecode from "jwt-decode";
 function Login() {
   const [login, setLogin] = useState(true);
+  const [token, setToken] = useState();
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -17,7 +18,8 @@ function Login() {
     login ? setLogin(false) : setLogin(true);
   };
 
-  function handleClick() {
+  const handleClick = async (e) => {
+    e.preventDefault();
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -32,17 +34,24 @@ function Login() {
       body: raw,
       redirect: "follow",
     };
-
     if (input.email && input.password) {
       fetch("http://127.0.0.1:8080/auth/authenticate", requestOptions)
-        .then((response) => response.text())
-        .then((result) => console.log(result))
-        .catch((error) => console.log("error", error));
-      navigate("/start");
+        .then((response) => response.json())
+        .then((result) => {
+          setToken(result.token);
+          if (token) {
+            localStorage.token = result.token;
+            if (localStorage.token) {
+              console.log(localStorage.token);
+              navigate("/start");
+            }
+          }
+        })
+        .catch((error) => alert("Invalid Username and Password", error));
     } else {
       alert("Please enter all the fields");
     }
-  }
+  };
 
   const onInputChange = (e) => {
     const { name, value } = e.target;
@@ -112,6 +121,7 @@ function Login() {
         <button
           className="w-24 border h-8 rounded-full mt-8 ml-32 bg-cyan-100"
           onClick={handleClick}
+          id="button"
         >
           {" "}
           Log In
@@ -122,6 +132,7 @@ function Login() {
             Register
           </p>
         </div>
+        <script type="text/javascript">console.log("CEM");</script>
       </form>
     );
   } else {
