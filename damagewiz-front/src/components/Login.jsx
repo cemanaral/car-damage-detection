@@ -34,7 +34,7 @@ function Login() {
     };
 
     if (input.email && input.password) {
-      fetch("http://127.0.0.1:8080/api/v1/auth/authenticate", requestOptions)
+      fetch("http://127.0.0.1:8080/auth/authenticate", requestOptions)
         .then((response) => response.text())
         .then((result) => console.log(result))
         .catch((error) => console.log("error", error));
