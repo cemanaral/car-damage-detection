@@ -85,9 +85,9 @@ function Contact() {
           <p className="text-white mt-12">
             We are a group of students from the Marmara University. We are
             currently in the 4rd grade of our studies and are working on a
-            project for the course "Artifical Intelligence". The project's goal
-            is to create an app for finding the damages of the vehicles from the
-            photos you upload.
+            project for the course "cse4178". The project's goal is to create an
+            app for finding the damages of the vehicles from the photos you
+            upload.
           </p>
         </div>
         <div className="xs:w-96 xs:ml-auto xs:mr-16 mt-20 bg-black/30 flex-column p-6 rounded-xl backdrop-blur">

@@ -7,6 +7,7 @@ function App({ handleLogin }) {
     surname: "",
     password: "",
     confirmPassword: "",
+    phoneNumber: "",
   });
 
   const [error, setError] = useState({
@@ -15,6 +16,7 @@ function App({ handleLogin }) {
     surname: "",
     password: "",
     confirmPassword: "",
+    phoneNumber: "",
   });
 
   const onInputChange = (e) => {
@@ -71,6 +73,11 @@ function App({ handleLogin }) {
           }
           break;
 
+        case "surname":
+          if (!value) {
+            stateObj[name] = "Please enter Name.";
+          }
+          break;
         default:
           break;
       }
@@ -144,6 +151,19 @@ function App({ handleLogin }) {
         ></input>
         {error.confirmPassword && (
           <p className="text-red-400">{error.confirmPassword}</p>
+        )}
+        <p className="text-white mt-4"> Phone Number </p>
+        <input
+          type="phone"
+          name="phoneNumber"
+          placeholder="Enter Phone Number"
+          value={input.phoneNumber}
+          onChange={onInputChange}
+          onBlur={validateInput}
+          className="w-full h-8 rounded-md mt-2 bg-cyan-100 border"
+        ></input>
+        {error.phoneNumber && (
+          <p className="text-red-400">{error.phoneNumber}</p>
         )}
 
         <button className="w-24 border h-8 rounded-full ml-32 mt-6 bg-cyan-100">
