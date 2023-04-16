@@ -11,5 +11,6 @@ public interface AdminService {
     CarPart addCarPart(CarPart carPart);
     CarPart updateCarPart(CarPart carPart);
     String deleteCarPart(Long id);
+
     List<User> getAllUsers();
 }

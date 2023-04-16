@@ -14,8 +14,6 @@ import java.util.List;
 public class MyOrderServiceImpl implements MyOrderService {
 
     private final MyOrderRepository myOrderRepository;
-    private static Long order_id = 1L;
-
 
     //POST REQUESTTE ENTITY ICINDE ENTITY VAR ISE POST REQUESTIN ICINDEKI ENTITY FIELDLARINDA SADECE NULLABLE FALSE
     //OLAN FIELDLAR DOLDURULUNCA SORUN OLMUYOR. GEREKSIZ BILGILERI KOYMAYA GEREK YOK!
@@ -25,7 +23,7 @@ public class MyOrderServiceImpl implements MyOrderService {
         List<MyOrder> allUsersOrders = myOrderRepository.findAll();
         Long orderId;
         if(allUsersOrders.isEmpty()) {
-            orderId = order_id;
+            orderId = 1L;
         }
         else{
             MyOrder largestOrderIdMyOrder = allUsersOrders.get(allUsersOrders.size()-1);
