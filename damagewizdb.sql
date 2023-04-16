@@ -145,7 +145,7 @@ CREATE TABLE `my_orders` (
   KEY `FK4vxfxed0qw6qqnn0736goxkcy` (`user`),
   CONSTRAINT `FK4vxfxed0qw6qqnn0736goxkcy` FOREIGN KEY (`user`) REFERENCES `users` (`id`),
   CONSTRAINT `FKm7edayagclxubxjhm8352inu1` FOREIGN KEY (`car_part`) REFERENCES `car_parts` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,7 +154,7 @@ CREATE TABLE `my_orders` (
 
 LOCK TABLES `my_orders` WRITE;
 /*!40000 ALTER TABLE `my_orders` DISABLE KEYS */;
-INSERT INTO `my_orders` VALUES (3,1,12,1),(4,1,13,1),(5,2,12,1),(6,2,13,1),(7,3,12,1),(8,3,13,1),(9,4,12,1),(10,4,13,1);
+INSERT INTO `my_orders` VALUES (21,1,12,1),(22,1,13,1),(23,2,12,1),(24,2,13,1);
 /*!40000 ALTER TABLE `my_orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,4 +197,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-15 18:21:45
+-- Dump completed on 2023-04-16 16:53:31
