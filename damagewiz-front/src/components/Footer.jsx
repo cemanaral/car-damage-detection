@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <footer className="footer">
-      <p className="flex bg-[#F5F5F58C] h-8 justify-center self-center">
+      <p className="flex bg-[#F5F5F58C] h-8 justify-center self-center mt-10">
         {" "}
         © 2023 DamageWiz | All Rights Reserved |{" "}
         <a href="/contact"> Contact - Who are we? - FAQ </a>

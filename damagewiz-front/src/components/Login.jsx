@@ -1,9 +1,19 @@
 import { useState } from "react";
 import Register from "./Register";
+import { useNavigate } from "react-router-dom";
 function Login() {
   const [login, setLogin] = useState(true);
+  const navigate = useNavigate();
   const handleLogin = () => {
     login ? setLogin(false) : setLogin(true);
+  };
+  const handleClick = () => {
+    if (input.email && input.password) {
+      alert("Login Successful");
+    } else {
+      alert("Please enter all the fields");
+    }
+    navigate("/start");
   };
   const [input, setInput] = useState({
     email: "",
@@ -77,7 +87,10 @@ function Login() {
         {error.password && (
           <span className="text-red-400">{error.password}</span>
         )}
-        <button className="w-24 border h-8 rounded-full mt-8 ml-32 bg-cyan-100">
+        <button
+          className="w-24 border h-8 rounded-full mt-8 ml-32 bg-cyan-100"
+          onClick={handleClick}
+        >
           {" "}
           Log In
         </button>
