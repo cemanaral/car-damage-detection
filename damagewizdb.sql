@@ -62,7 +62,7 @@ CREATE TABLE `car_part_names` (
 
 LOCK TABLES `car_part_names` WRITE;
 /*!40000 ALTER TABLE `car_part_names` DISABLE KEYS */;
-INSERT INTO `car_part_names` VALUES (1,'Left Mirror'),(2,'Right Mirror'),(3,'Wheel'),(4,'Bumper');
+INSERT INTO `car_part_names` VALUES (1,'Headlamp'),(2,'Hood'),(3,'Rear Bumper'),(4,'Front Bumper Door');
 /*!40000 ALTER TABLE `car_part_names` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,4 +197,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-16 16:53:31
+-- Dump completed on 2023-04-16 17:14:55
