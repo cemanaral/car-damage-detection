@@ -129,6 +129,36 @@ INSERT INTO `mechanics` VALUES (1,'Put Request\'in Yeri','41.07965151437728','28
 UNLOCK TABLES;
 
 --
+-- Table structure for table `my_orders`
+--
+
+DROP TABLE IF EXISTS `my_orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `my_orders` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `order_id` bigint NOT NULL,
+  `car_part` bigint DEFAULT NULL,
+  `user` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKm7edayagclxubxjhm8352inu1` (`car_part`),
+  KEY `FK4vxfxed0qw6qqnn0736goxkcy` (`user`),
+  CONSTRAINT `FK4vxfxed0qw6qqnn0736goxkcy` FOREIGN KEY (`user`) REFERENCES `users` (`id`),
+  CONSTRAINT `FKm7edayagclxubxjhm8352inu1` FOREIGN KEY (`car_part`) REFERENCES `car_parts` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `my_orders`
+--
+
+LOCK TABLES `my_orders` WRITE;
+/*!40000 ALTER TABLE `my_orders` DISABLE KEYS */;
+INSERT INTO `my_orders` VALUES (3,1,12,1),(4,1,13,1),(5,2,12,1),(6,2,13,1),(7,3,12,1),(8,3,13,1),(9,4,12,1),(10,4,13,1);
+/*!40000 ALTER TABLE `my_orders` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -167,4 +197,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-13 14:04:43
+-- Dump completed on 2023-04-15 18:21:45
