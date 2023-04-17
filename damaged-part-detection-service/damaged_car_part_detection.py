@@ -104,6 +104,13 @@ part_predictor = DefaultPredictor(cfg_mul)
 from flask import Blueprint, request, current_app, jsonify
 blueprint = Blueprint('damaged_car_part_detection', __name__)
 
+id_map_parts = {'headlamp': 1, 
+                'rear_bumper': 2, 
+                'door': 3,
+                'hood': 4,
+                'front_bumper': 5
+              }
+
 @blueprint.route('/', methods=['POST'], strict_slashes=False)
 def detect_endpoint():
   def detect_damage_part(damage_dict, parts_dict):
@@ -184,7 +191,10 @@ def detect_endpoint():
   parts_polygon_centers_filtered = list(filter(lambda x: x[0] < 800 and x[1] < 800, parts_polygon_centers))
   parts_dict = dict(zip(parts_prediction_classes,parts_polygon_centers_filtered))
 
-  result = detect_damage_part(damage_dict,parts_dict)
-  print("Damaged Parts: ", result)
-  return jsonify(result=result)
+  detection_result = detect_damage_part(damage_dict,parts_dict)
+  print("Damaged Parts: ", detection_result)
+  result_response = []
+  for r in detection_result:
+    result_response.append({"id": id_map_parts[r], "result": r})
+  return jsonify(result=result_response)
 
