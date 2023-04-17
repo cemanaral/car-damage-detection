@@ -104,7 +104,7 @@ part_predictor = DefaultPredictor(cfg_mul)
 from flask import Blueprint, request, current_app, jsonify
 blueprint = Blueprint('damaged_car_part_detection', __name__)
 
-@blueprint.route('/', methods=['POST'])
+@blueprint.route('/', methods=['POST'], strict_slashes=False)
 def detect_endpoint():
   def detect_damage_part(damage_dict, parts_dict):
     """
