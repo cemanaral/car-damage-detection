@@ -100,83 +100,91 @@ cfg_mul.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7
 cfg_mul['MODEL']['DEVICE']='cpu' #or cpu
 part_predictor = DefaultPredictor(cfg_mul)
 
-def detect_damage_part(damage_dict, parts_dict):
-  """
-  Returns the most plausible damaged part for the list of damages by checking the distance 
-  between centers centers of damage_polygons and parts_polygons
 
-  Parameters
-  -------------
-   damage_dict: dict
-                Dictionary that maps damages to damage polygon centers.
-   parts_dict: dict
-                Dictionary that maps part labels to parts polygon centers.
-  Return
-  ----------
-  part_name: str
-            The most plausible damaged part name.
-  """
-  try:
-    max_distance = 10e9
-    assert len(damage_dict)>0, "AssertError: damage_dict should have atleast one damage"
-    assert len(parts_dict)>0, "AssertError: parts_dict should have atleast one part"
-    max_distance_dict = dict(zip(damage_dict.keys(),[max_distance]*len(damage_dict)))
-    part_name = dict(zip(damage_dict.keys(),['']*len(damage_dict)))
+from flask import Blueprint, request, current_app, jsonify
+blueprint = Blueprint('damaged_car_part_detection', __name__)
 
-    for y in parts_dict.keys():
-        for x in damage_dict.keys():
-          dis = distance.euclidean(damage_dict[x], parts_dict[y])
-          if dis < max_distance_dict[x]:
-            part_name[x] = y.rsplit('_',1)[0]
+@blueprint.route('/', methods=['POST'])
+def detect_endpoint():
+  def detect_damage_part(damage_dict, parts_dict):
+    """
+    Returns the most plausible damaged part for the list of damages by checking the distance 
+    between centers centers of damage_polygons and parts_polygons
 
-    return list(set(part_name.values()))
-  except Exception as e:
-    print(e)
+    Parameters
+    -------------
+    damage_dict: dict
+                  Dictionary that maps damages to damage polygon centers.
+    parts_dict: dict
+                  Dictionary that maps part labels to parts polygon centers.
+    Return
+    ----------
+    part_name: str
+              The most plausible damaged part name.
+    """
+    try:
+      max_distance = 10e9
+      assert len(damage_dict)>0, "AssertError: damage_dict should have atleast one damage"
+      assert len(parts_dict)>0, "AssertError: parts_dict should have atleast one part"
+      max_distance_dict = dict(zip(damage_dict.keys(),[max_distance]*len(damage_dict)))
+      part_name = dict(zip(damage_dict.keys(),['']*len(damage_dict)))
 
-damage_class_map= {0:'damage'}
-parts_class_map={0:'headlamp',1:'rear_bumper', 2:'door', 3:'hood', 4: 'front_bumper'}
+      for y in parts_dict.keys():
+          for x in damage_dict.keys():
+            dis = distance.euclidean(damage_dict[x], parts_dict[y])
+            if dis < max_distance_dict[x]:
+              part_name[x] = y.rsplit('_',1)[0]
 
-# !! TEST MODELS
+      return list(set(part_name.values()))
+    except Exception as e:
+      print(e)
 
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize =(16,12))
-im = io.imread("68.jpg")
+  damage_class_map= {0:'damage'}
+  parts_class_map={0:'headlamp',1:'rear_bumper', 2:'door', 3:'hood', 4: 'front_bumper'}
 
-#damage inference
-damage_outputs = damage_predictor(im)
-damage_v = Visualizer(im[:, :, ::-1],
-                   metadata=MetadataCatalog.get("car_dataset_val"), 
-                   scale=0.5, 
-                   instance_mode=ColorMode.IMAGE_BW   # remove the colors of unsegmented pixels. This option is only available for segmentation models
-)
-damage_out = damage_v.draw_instance_predictions(damage_outputs["instances"].to("cpu"))
+  # !! TEST MODELS
 
-#part inference
-parts_outputs = part_predictor(im)
-parts_v = Visualizer(im[:, :, ::-1],
-                   metadata=MetadataCatalog.get("car_mul_dataset_val"), 
-                   scale=0.5, 
-                   instance_mode=ColorMode.IMAGE_BW   # remove the colors of unsegmented pixels. This option is only available for segmentation models
-)
-parts_out = parts_v.draw_instance_predictions(parts_outputs["instances"].to("cpu"))
+  fig, (ax1, ax2) = plt.subplots(1, 2, figsize =(16,12))
+  im = io.imread(request.files['model_image'])
 
-#plot
-ax1.imshow(damage_out.get_image()[:, :, ::-1],)
-ax2.imshow(parts_out.get_image()[:, :, ::-1])
+  #damage inference
+  damage_outputs = damage_predictor(im)
+  damage_v = Visualizer(im[:, :, ::-1],
+                    metadata=MetadataCatalog.get("car_dataset_val"), 
+                    scale=0.5, 
+                    instance_mode=ColorMode.IMAGE_BW   # remove the colors of unsegmented pixels. This option is only available for segmentation models
+  )
+  damage_out = damage_v.draw_instance_predictions(damage_outputs["instances"].to("cpu"))
 
-"""# Yeni Bölüm"""
+  #part inference
+  parts_outputs = part_predictor(im)
+  parts_v = Visualizer(im[:, :, ::-1],
+                    metadata=MetadataCatalog.get("car_mul_dataset_val"), 
+                    scale=0.5, 
+                    instance_mode=ColorMode.IMAGE_BW   # remove the colors of unsegmented pixels. This option is only available for segmentation models
+  )
+  parts_out = parts_v.draw_instance_predictions(parts_outputs["instances"].to("cpu"))
 
-damage_prediction_classes = [ damage_class_map[el] + "_" + str(indx) for indx,el in enumerate(damage_outputs["instances"].pred_classes.tolist())]
-damage_polygon_centers = damage_outputs["instances"].pred_boxes.get_centers().tolist()
-damage_dict = dict(zip(damage_prediction_classes,damage_polygon_centers))
+  #plot
+  ax1.imshow(damage_out.get_image()[:, :, ::-1],)
+  ax2.imshow(parts_out.get_image()[:, :, ::-1])
 
-parts_prediction_classes = [ parts_class_map[el] + "_" + str(indx) for indx,el in enumerate(parts_outputs["instances"].pred_classes.tolist())]
-parts_polygon_centers =  parts_outputs["instances"].pred_boxes.get_centers().tolist()
+  """# Yeni Bölüm"""
+
+  damage_prediction_classes = [ damage_class_map[el] + "_" + str(indx) for indx,el in enumerate(damage_outputs["instances"].pred_classes.tolist())]
+  damage_polygon_centers = damage_outputs["instances"].pred_boxes.get_centers().tolist()
+  damage_dict = dict(zip(damage_prediction_classes,damage_polygon_centers))
+
+  parts_prediction_classes = [ parts_class_map[el] + "_" + str(indx) for indx,el in enumerate(parts_outputs["instances"].pred_classes.tolist())]
+  parts_polygon_centers =  parts_outputs["instances"].pred_boxes.get_centers().tolist()
 
 
 
-#Remove centers which lie in beyond 800 units
-parts_polygon_centers_filtered = list(filter(lambda x: x[0] < 800 and x[1] < 800, parts_polygon_centers))
-parts_dict = dict(zip(parts_prediction_classes,parts_polygon_centers_filtered))
+  #Remove centers which lie in beyond 800 units
+  parts_polygon_centers_filtered = list(filter(lambda x: x[0] < 800 and x[1] < 800, parts_polygon_centers))
+  parts_dict = dict(zip(parts_prediction_classes,parts_polygon_centers_filtered))
 
-print("Damaged Parts: ",detect_damage_part(damage_dict,parts_dict))
+  result = detect_damage_part(damage_dict,parts_dict)
+  print("Damaged Parts: ", result)
+  return jsonify(result=result)
 
