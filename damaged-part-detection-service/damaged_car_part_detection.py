@@ -139,7 +139,7 @@ parts_class_map={0:'headlamp',1:'rear_bumper', 2:'door', 3:'hood', 4: 'front_bum
 # !! TEST MODELS
 
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize =(16,12))
-im = io.imread("29.jpg")
+im = io.imread("68.jpg")
 
 #damage inference
 damage_outputs = damage_predictor(im)
