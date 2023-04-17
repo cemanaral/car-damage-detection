@@ -8,11 +8,11 @@ CORS(app)
 
 from model_detection import blueprint as model_detection_blueprint
 from brand_detection import blueprint as brand_detection_blueprint
-from damaged_part_detection import blueprint as damaged_part_detection_blueprint
+#from damaged_part_detection import blueprint as damaged_part_detection_blueprint
 
 app.register_blueprint(model_detection_blueprint, url_prefix='/model')
 app.register_blueprint(brand_detection_blueprint, url_prefix='/brand')
-app.register_blueprint(damaged_part_detection_blueprint, url_prefix='/damage')
+#app.register_blueprint(damaged_part_detection_blueprint, url_prefix='/damage')
 
 @app.errorhandler(HTTPException)
 def handle_exception(e):
