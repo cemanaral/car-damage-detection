@@ -75,7 +75,7 @@ cfg.MODEL.RETINANET.NUM_CLASSES = 2  # only has one class (damage) + 1
 cfg.MODEL.WEIGHTS = os.path.join(
     "models/damage_segmentation_model.pth")
 cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7
-cfg['MODEL']['DEVICE'] = 'cuda'  # or cpu
+cfg['MODEL']['DEVICE'] = 'cpu'  # or cpu
 damage_predictor = DefaultPredictor(cfg)
 
 
