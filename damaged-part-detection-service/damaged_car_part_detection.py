@@ -192,6 +192,7 @@ def detect_endpoint():
   parts_dict = dict(zip(parts_prediction_classes,parts_polygon_centers_filtered))
 
   detection_result = detect_damage_part(damage_dict,parts_dict)
+  print("Damaged Parts: ",detection_result)
   result_response = []
   for r in detection_result:
     result_response.append({"id": id_map_parts[r], "result": r})
