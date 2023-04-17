@@ -3,7 +3,7 @@ import { useState } from "react";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-
+  console.log(localStorage.email);
   return (
     <div>
       <div className="flex bg-[#F5F5F58C] h-10 items-center ">
@@ -11,7 +11,7 @@ function Navbar() {
           <p className="text-white md:text-xl">DamageWiz</p>
           <p className="text-white md:text-xl ml-5 hidden xs:block">
             {" "}
-            Welcome, Username
+            Welcome, {localStorage.email}
           </p>
         </div>
         <div className="ml-auto flex ">
