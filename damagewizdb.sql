@@ -172,10 +172,10 @@ CREATE TABLE `users` (
   `last_name` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `role` varchar(255) DEFAULT NULL,
-  `phone_number` varchar(255) NOT NULL,
+  `phone_number` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_r53o2ojjw4fikudfnsuuga336` (`password`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,7 +184,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'yhsenyurt@gmail.com','Hasan','Senyurt','$2a$10$7mdHFM.gE35R6Dspvr574OMBieWtkd7WdfiOvdgfdCikaBw2SlRGC','USER','5551113322'),(2,'admin','admin','admin','$2a$10$qd4j2DlsZrVHSy1v.cwQb.TPoEsjCCy0aleidKjjjhLK7.gBK.os6','ADMIN','0000000000'),(3,'mel@gmail.com','Melisa','Durmuş','$2a$10$C.XnjM..Gevg290wPKS35uvStmwdj7jGGqEUD2rd8BsOX8Lsbm4Mu','USER','5352221188'),(4,'cem@gmail.com','Cem','Anaral','$2a$10$J8HeqcNRgmBCKQTFZLkwPOLHr/eR7JegZ1j4KRtnDGIbClGudUnzK','USER','5368887766');
+INSERT INTO `users` VALUES (1,'yhsenyurt@gmail.com','Hasan','Senyurt','$2a$10$7mdHFM.gE35R6Dspvr574OMBieWtkd7WdfiOvdgfdCikaBw2SlRGC','USER','5551113322'),(2,'admin','admin','admin','$2a$10$qd4j2DlsZrVHSy1v.cwQb.TPoEsjCCy0aleidKjjjhLK7.gBK.os6','ADMIN','0000000000'),(3,'mel@gmail.com','Melisa','Durmuş','$2a$10$C.XnjM..Gevg290wPKS35uvStmwdj7jGGqEUD2rd8BsOX8Lsbm4Mu','USER','5352221188'),(4,'cem@gmail.com','Cem','Anaral','$2a$10$J8HeqcNRgmBCKQTFZLkwPOLHr/eR7JegZ1j4KRtnDGIbClGudUnzK','USER','5368887766'),(5,'yusuf@gmail.com','Yusuf','Senyurt','$2a$10$XRgfHt.5Ari2jBbWxGCqAObAC6nrIE1cAqdoohhOX9TxJKN0y9ZXy','USER',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -197,4 +197,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-16 17:14:55
+-- Dump completed on 2023-04-17 16:58:16
