@@ -9,6 +9,7 @@ function Navbar() {
     localStorage.clear();
     navigate("/");
   };
+
   return (
     <div>
       <div className="flex bg-[#F5F5F58C] h-10 items-center ">
@@ -23,7 +24,12 @@ function Navbar() {
           <p className="text-white md:text-xl mr-5 hidden sm:block">
             My Orders
           </p>
-          <p className="text-white md:text-xl mr-5 hidden sm:block">Log Out</p>
+          <button
+            className="text-white md:text-xl mr-5 hidden sm:block"
+            onClick={handleClick}
+          >
+            Log Out
+          </button>
         </div>
         <Icon
           icon="system-uicons:menu-hamburger"
