@@ -166,22 +166,19 @@ def detect_parts():
     parts_outputs = parts_v.draw_instance_predictions(
     parts_outputs["instances"].to("cpu"))
 
-    damage_prediction_classes = [damage_class_map[el] + "_" + str(
-        indx) for indx, el in enumerate(damage_outputs["instances"].pred_classes.tolist())]
-    damage_polygon_centers = damage_outputs["instances"].pred_boxes.get_centers(
-    ).tolist()
-    damage_dict = dict(zip(damage_prediction_classes, damage_polygon_centers))
+    damage_prediction_classes = [ damage_class_map[el] + "_" + str(indx) for indx,el in enumerate(damage_outputs["instances"].pred_classes.tolist())]
+    damage_polygon_centers = damage_outputs["instances"].pred_boxes.get_centers().tolist()
+    damage_dict = dict(zip(damage_prediction_classes,damage_polygon_centers))
 
-    parts_prediction_classes = [parts_class_map[el] + "_" + str(
-        indx) for indx, el in enumerate(parts_outputs["instances"].pred_classes.tolist())]
-    parts_polygon_centers = parts_outputs["instances"].pred_boxes.get_centers(
-    ).tolist()
 
-    # Remove centers which lie in beyond 800 units
-    parts_polygon_centers_filtered = list(
-        filter(lambda x: x[0] < 800 and x[1] < 800, parts_polygon_centers))
-    parts_dict = dict(zip(parts_prediction_classes,
-                      parts_polygon_centers_filtered))
+    parts_prediction_classes = [ parts_class_map[el] + "_" + str(indx) for indx,el in enumerate(parts_outputs["instances"].pred_classes.tolist())]
+    parts_polygon_centers =  parts_outputs["instances"].pred_boxes.get_centers().tolist()
+
+
+
+    #Remove centers which lie in beyond 800 units
+    parts_polygon_centers_filtered = list(filter(lambda x: x[0] < 800 and x[1] < 800, parts_polygon_centers))
+    parts_dict = dict(zip(parts_prediction_classes,parts_polygon_centers_filtered))
 
     result = detect_damage_part(damage_dict, parts_dict)
     print("Damaged Parts: ", result)
