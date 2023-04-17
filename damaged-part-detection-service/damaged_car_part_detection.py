@@ -194,7 +194,7 @@ def detect_endpoint():
   detection_result = detect_damage_part(damage_dict,parts_dict)
   print("Damaged Parts: ",detection_result)
   result_response = []
-  for r in detection_result:
+  for r in detection_result or []:
     result_response.append({"id": id_map_parts[r], "result": r})
 
   print("Damaged Parts: ", result_response)
