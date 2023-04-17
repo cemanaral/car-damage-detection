@@ -25,6 +25,7 @@ import skimage.io as io
 import matplotlib.pyplot as plt
 import pylab
 import random
+from numpy import asarray
 
 from flask import Flask
 from flask_cors import CORS
@@ -138,7 +139,7 @@ parts_class_map = {0: 'headlamp', 1: 'rear_bumper',
 
 @app.route('/', methods=['POST'])
 def detect_parts():
-    im = request.files['model_image'].read()
+    im = np.as_array(request.files['model_image'].read())
     app.logger.info(f'file received from brand endpoint {request.files["model_image"].__dict__}')
 
 
