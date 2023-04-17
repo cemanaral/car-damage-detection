@@ -139,7 +139,8 @@ parts_class_map = {0: 'headlamp', 1: 'rear_bumper',
 
 @app.route('/', methods=['POST'])
 def detect_parts():
-    im = np.asarray(request.files['model_image'].read())
+    
+    im = io.imread(request.files['model_image'])
     app.logger.info(f'file received from brand endpoint {request.files["model_image"].__dict__}')
 
 
