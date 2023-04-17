@@ -19,6 +19,7 @@
 -- Table structure for table `car`
 --
 
+
 USE damagewizdb;
 
 DROP TABLE IF EXISTS `car`;
@@ -53,7 +54,7 @@ CREATE TABLE `car_part_names` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -62,7 +63,7 @@ CREATE TABLE `car_part_names` (
 
 LOCK TABLES `car_part_names` WRITE;
 /*!40000 ALTER TABLE `car_part_names` DISABLE KEYS */;
-INSERT INTO `car_part_names` VALUES (1,'Headlamp'),(2,'Hood'),(3,'Rear Bumper'),(4,'Front Bumper Door');
+INSERT INTO `car_part_names` VALUES (1,'Headlamp'),(2,'Rear Bumper'),(3,'Door'),(4,'Hood'),(5,'Front Bumper');
 /*!40000 ALTER TABLE `car_part_names` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,4 +198,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-17 16:58:16
+-- Dump completed on 2023-04-18  0:37:40
