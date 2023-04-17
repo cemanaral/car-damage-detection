@@ -12,7 +12,7 @@ function BrandApprovalPage() {
     navigate("/partDetection");
   };
   const Ford = ["Fiesta", "Mustang"];
-  const Hyundai = ["Accent", "Elentra"];
+  const Hyundai = ["Accent", "Elantra"];
   const Volkswagen = ["Beetle", "Golf"];
   const Toyota = ["Corolla", "Yaris"];
   let type = null;
@@ -26,10 +26,15 @@ function BrandApprovalPage() {
   } else if (brand === "Toyota") {
     type = Toyota;
   }
+
   if (type) {
-    options = type.map((el) => <option key={el}>{el}</option>);
+    options = type.map((el) => (
+      <option key={el} defaultValue={model}>
+        {el}
+      </option>
+    ));
   }
-  console.log(brand, model);
+
   return (
     <div>
       <div>
@@ -43,8 +48,8 @@ function BrandApprovalPage() {
               value={brand}
               onChange={(e) => setBrand(e.target.value)}
               className=" w-96 mt-3 rounded h-8 bg-cyan-100"
+              defaultValue={brand}
             >
-              <option>{brand}</option>
               <option>Ford</option>
               <option>Hyundai</option>
               <option>Toyota</option>
