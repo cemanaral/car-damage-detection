@@ -15,7 +15,7 @@ from scipy.spatial import distance
 from PIL import Image
 from tensorboard.backend.event_processing import event_accumulator as ea
 import os
-from flask import Blueprint, request, current_app, jsonify
+from flask import request, jsonify
 
 import torch
 import torchvision
@@ -25,7 +25,31 @@ import skimage.io as io
 import matplotlib.pyplot as plt
 import pylab
 import random
+
+from flask import Flask
+from flask_cors import CORS
+from werkzeug.exceptions import HTTPException
+
+
 pylab.rcParams['figure.figsize'] = (8.0, 10.0)  # Import Libraries
+
+app = Flask(__name__)
+CORS(app)
+
+@app.errorhandler(HTTPException)
+def handle_exception(e):
+    """Return JSON instead of HTML for HTTP errors."""
+    # start with the correct headers and status code from the error
+    response = e.get_response()
+    # replace the body with JSON
+    response.data = json.dumps({
+        "code": e.code,
+        "name": e.name,
+        "description": e.description,
+    })
+    response.content_type = "application/json"
+    return response
+
 
 # For visualization
 
@@ -110,13 +134,12 @@ damage_class_map = {0: 'damage'}
 parts_class_map = {0: 'headlamp', 1: 'rear_bumper',
                    2: 'door', 3: 'hood', 4: 'front_bumper'}
 
-blueprint = Blueprint('damaged_part_detection', __name__)
 
 
-@blueprint.route('/', methods=['POST'])
+@app.route('/', methods=['POST'])
 def detect_parts():
     im = request.files['model_image'].read()
-    current_app.logger.info(f'file received from brand endpoint {request.files["model_image"].__dict__}')
+    app.logger.info(f'file received from brand endpoint {request.files["model_image"].__dict__}')
 
 
     # damage inference
@@ -158,5 +181,14 @@ def detect_parts():
     parts_dict = dict(zip(parts_prediction_classes,
                       parts_polygon_centers_filtered))
 
-    print("Damaged Parts: ", detect_damage_part(damage_dict, parts_dict))
-    return ""
+    result = detect_damage_part(damage_dict, parts_dict)
+    print("Damaged Parts: ", result)
+    return jsonify(result)
+
+
+
+
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8081, debug=False)
