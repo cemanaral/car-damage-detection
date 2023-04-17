@@ -9,6 +9,8 @@ import BrandDetectionPage from "./pages/BrandDetectionPage";
 import BrandApprovalPage from "./pages/BrandApprovalPage";
 import PartDetectionPage from "./pages/PartDetectionPage";
 import PartApprovalPage from "./pages/PartApprovalPage";
+import ListingPartsPage from "./pages/ListingPartsPage";
+import SummaryPage from "./pages/SummaryPage";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Router>
@@ -20,6 +22,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/brandApproval" element={<BrandApprovalPage />} />
       <Route path="/partDetection" element={<PartDetectionPage />} />
       <Route path="/partApproval" element={<PartApprovalPage />} />
+      <Route path="/listingParts" element={<ListingPartsPage />} />
+      <Route path="/summary" element={<SummaryPage />} />
     </Routes>
   </Router>
 );
