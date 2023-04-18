@@ -47,7 +47,7 @@ function Login() {
             }
           }
         })
-        .catch((error) => alert("Invalid Username and Password", error));
+        .catch((error) => alert("Wrong Username or Password", error));
     } else {
       alert("Please enter all the fields");
     }

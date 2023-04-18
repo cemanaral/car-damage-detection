@@ -3,12 +3,33 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const toggle = () => setIsOpen(!isOpen);
   const navigate = useNavigate();
   const handleClick = () => {
     localStorage.clear();
     navigate("/");
   };
+  const getUser = () => {
+    var requestOptions = {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + localStorage.token,
+      },
+      redirect: "follow",
+    };
+    fetch("http://127.0.0.1:9090/user/" + localStorage.email, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        setFirstName(result.firstName);
+        setLastName(result.lastName);
+        console.log(firstName, lastName);
+      })
+      .catch((error) => console.log("error", error));
+  };
+  getUser();
 
   return (
     <div>
@@ -17,7 +38,7 @@ function Navbar() {
           <p className="text-white md:text-xl">DamageWiz</p>
           <p className="text-white md:text-xl ml-5 hidden xs:block">
             {" "}
-            Welcome, {localStorage.email}
+            Welcome, {firstName} {lastName}
           </p>
         </div>
         <div className="ml-auto flex ">
@@ -61,21 +82,4 @@ function Navbar() {
 
 export default Navbar;
 
-{
-  /* <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-10">
-  <div className="flex flex-col items-center justify-center h-full">
-    <div className="flex flex-col items-center justify-center bg-white w-3/4 h-3/4">
-      <p className="text-black md:text-xl">My Orders</p>
-      <p className="text-black md:text-xl">Log Out</p>
-      <Icon
-        icon="system-uicons:close"
-        color="black"
-        height="2rem"
-        width="2rem"
-        className="sm:hidden mr-3"
-        onClick={toggle}
-      />
-    </div>
-  </div>
-</div> */
-}
+// "proxy": "http://localhost:8080",
