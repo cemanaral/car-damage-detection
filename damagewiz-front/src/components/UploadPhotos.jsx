@@ -44,6 +44,8 @@ function UploadPhotos() {
       .then((res) => res.json())
       .then((data) => {
         detectedModel = data;
+        localStorage.carID = detectedModel.id;
+        console.log(carID);
         console.log(detectedModel);
       })
       .catch((err) => {
