@@ -3,18 +3,7 @@ import Register from "./Register";
 import { useNavigate } from "react-router-dom";
 function Login() {
   const [login, setLogin] = useState(true);
-  const navigate = useNavigate();
-  const handleLogin = () => {
-    login ? setLogin(false) : setLogin(true);
-  };
-  const handleClick = () => {
-    if (input.email && input.password) {
-      alert("Login Successful");
-    } else {
-      alert("Please enter all the fields");
-    }
-    navigate("/start");
-  };
+  const [token, setToken] = useState();
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -23,6 +12,47 @@ function Login() {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    login ? setLogin(false) : setLogin(true);
+  };
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      email: input.email,
+      password: input.password,
+    });
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+    if (input.email && input.password) {
+      fetch("http://127.0.0.1:8080/auth/authenticate", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          setToken(result.token);
+          if (token) {
+            localStorage.token = result.token;
+            localStorage.email = input.email;
+            if (localStorage.token) {
+              console.log(localStorage.token);
+              navigate("/start");
+            }
+          }
+        })
+        .catch((error) => alert("Invalid Username and Password", error));
+    } else {
+      alert("Please enter all the fields");
+    }
+  };
+
   const onInputChange = (e) => {
     const { name, value } = e.target;
     setInput((prev) => ({
@@ -53,6 +83,7 @@ function Login() {
       return stateObj;
     });
   };
+  console.log(input.email, input.password);
   if (login) {
     return (
       <form className="xs:w-96 ml-auto mb-auto xs:mr-16 mt-20 bg-black/30 flex-column p-6 rounded-xl backdrop-blur">
@@ -90,6 +121,7 @@ function Login() {
         <button
           className="w-24 border h-8 rounded-full mt-8 ml-32 bg-cyan-100"
           onClick={handleClick}
+          id="button"
         >
           {" "}
           Log In
@@ -100,6 +132,7 @@ function Login() {
             Register
           </p>
         </div>
+        <script type="text/javascript">console.log("CEM");</script>
       </form>
     );
   } else {

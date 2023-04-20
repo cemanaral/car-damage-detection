@@ -1,9 +1,14 @@
 import { Icon } from "@iconify/react";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-
+  const navigate = useNavigate();
+  const handleClick = () => {
+    localStorage.clear();
+    navigate("/");
+  };
   return (
     <div>
       <div className="flex bg-[#F5F5F58C] h-10 items-center ">
@@ -11,7 +16,7 @@ function Navbar() {
           <p className="text-white md:text-xl">DamageWiz</p>
           <p className="text-white md:text-xl ml-5 hidden xs:block">
             {" "}
-            Welcome, Username
+            Welcome, {localStorage.email}
           </p>
         </div>
         <div className="ml-auto flex ">
@@ -34,7 +39,10 @@ function Navbar() {
           <div className="ml-auto bg-[#f5f5f5b0] w-32 h-24">
             <ul className="mt-5">
               <li className="text-black md:text-xl text-center">My Orders</li>
-              <li className="text-black md:text-xl text-center mt-2 ">
+              <li
+                className="text-black md:text-xl text-center mt-2 "
+                onClick={handleClick}
+              >
                 Log Out
               </li>
             </ul>

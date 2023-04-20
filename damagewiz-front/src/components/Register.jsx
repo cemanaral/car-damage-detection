@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function App({ handleLogin }) {
+  const navigate = useNavigate();
   const [input, setInput] = useState({
     email: "",
     name: "",
@@ -18,6 +20,30 @@ function App({ handleLogin }) {
     confirmPassword: "",
     phoneNumber: "",
   });
+
+  const handleClick = () => {
+    // var myHeaders = new Headers();
+    // myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      firstName: input.name,
+      lastName: input.surname,
+      email: input.email,
+      phoneNumber: input.phoneNumber,
+      password: input.password,
+    });
+    var requestOptions = {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch("http://localhost:8080/auth/register", requestOptions)
+      .then((response) => response.json())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+  };
 
   const onInputChange = (e) => {
     const { name, value } = e.target;
@@ -166,7 +192,10 @@ function App({ handleLogin }) {
           <p className="text-red-400">{error.phoneNumber}</p>
         )}
 
-        <button className="w-24 border h-8 rounded-full ml-32 mt-6 bg-cyan-100">
+        <button
+          className="w-24 border h-8 rounded-full ml-32 mt-6 bg-cyan-100"
+          onClick={handleClick}
+        >
           {" "}
           Register
         </button>

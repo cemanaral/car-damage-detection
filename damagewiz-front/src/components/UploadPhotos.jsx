@@ -44,6 +44,7 @@ function UploadPhotos() {
       .then((res) => res.json())
       .then((data) => {
         detectedModel = data;
+        console.log(detectedModel);
       })
       .catch((err) => {
         console.log(err);
