@@ -19,7 +19,6 @@
 -- Table structure for table `car`
 --
 
-
 USE damagewizdb;
 
 DROP TABLE IF EXISTS `car`;
@@ -89,7 +88,7 @@ CREATE TABLE `car_parts` (
   CONSTRAINT `FK2snndvw68wf9vuucrk89kl19w` FOREIGN KEY (`mechanic_id`) REFERENCES `mechanics` (`id`),
   CONSTRAINT `FK7it90x19sd947imtlpkdgwexg` FOREIGN KEY (`car_id`) REFERENCES `car` (`id`),
   CONSTRAINT `FKrkyn5r72g7jlyupiih06uwyx0` FOREIGN KEY (`car_part_id`) REFERENCES `car_part_names` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +97,7 @@ CREATE TABLE `car_parts` (
 
 LOCK TABLES `car_parts` WRITE;
 /*!40000 ALTER TABLE `car_parts` DISABLE KEYS */;
-INSERT INTO `car_parts` VALUES (12,100,250,1,1,NULL,1),(13,100,250,1,1,NULL,1),(14,100,250,3,2,NULL,4);
+INSERT INTO `car_parts` VALUES (12,100,250,1,1,NULL,1),(13,100,250,1,1,NULL,1),(14,100,250,3,2,NULL,4),(15,100,300,5,2,NULL,3),(16,150,350,5,1,NULL,3),(17,100,200,5,1,NULL,1),(18,250,450,5,2,NULL,2),(19,300,100,3,1,NULL,4),(20,150,250,3,2,NULL,5),(21,100,200,3,1,NULL,3);
 /*!40000 ALTER TABLE `car_parts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,7 +175,7 @@ CREATE TABLE `users` (
   `phone_number` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_r53o2ojjw4fikudfnsuuga336` (`password`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -185,7 +184,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'yhsenyurt@gmail.com','Hasan','Senyurt','$2a$10$7mdHFM.gE35R6Dspvr574OMBieWtkd7WdfiOvdgfdCikaBw2SlRGC','USER','5551113322'),(2,'admin','admin','admin','$2a$10$qd4j2DlsZrVHSy1v.cwQb.TPoEsjCCy0aleidKjjjhLK7.gBK.os6','ADMIN','0000000000'),(3,'mel@gmail.com','Melisa','Durmuş','$2a$10$C.XnjM..Gevg290wPKS35uvStmwdj7jGGqEUD2rd8BsOX8Lsbm4Mu','USER','5352221188'),(4,'cem@gmail.com','Cem','Anaral','$2a$10$J8HeqcNRgmBCKQTFZLkwPOLHr/eR7JegZ1j4KRtnDGIbClGudUnzK','USER','5368887766'),(5,'yusuf@gmail.com','Yusuf','Senyurt','$2a$10$XRgfHt.5Ari2jBbWxGCqAObAC6nrIE1cAqdoohhOX9TxJKN0y9ZXy','USER',NULL);
+INSERT INTO `users` VALUES (1,'yhsenyurt@gmail.com','Hasan','Senyurt','$2a$10$7mdHFM.gE35R6Dspvr574OMBieWtkd7WdfiOvdgfdCikaBw2SlRGC','USER','5551113322'),(2,'admin','admin','admin','$2a$10$qd4j2DlsZrVHSy1v.cwQb.TPoEsjCCy0aleidKjjjhLK7.gBK.os6','ADMIN','0000000000'),(4,'cem@gmail.com','Cem','Anaral','$2a$10$J8HeqcNRgmBCKQTFZLkwPOLHr/eR7JegZ1j4KRtnDGIbClGudUnzK','USER','5368887766'),(5,'yusuf@gmail.com','Yusuf','Senyurt','$2a$10$XRgfHt.5Ari2jBbWxGCqAObAC6nrIE1cAqdoohhOX9TxJKN0y9ZXy','USER',NULL),(6,'melisa@gmail.com','Melisa','Durmus','$2a$10$/q6uEsbKxcHju2kRD0DVdOSCTKZcAoftovbBWbc.Nq6PwVnZsqNTq','USER',NULL),(7,'ali@gmail.com','Ali','Yetim','$2a$10$h6ybPeVXLe1DkY9SqpJjDevJvy//dMFk3BMeA/iDU5qdFfjtgDPMe','USER',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -198,4 +197,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-18  0:37:40
+-- Dump completed on 2023-04-22 19:04:04
