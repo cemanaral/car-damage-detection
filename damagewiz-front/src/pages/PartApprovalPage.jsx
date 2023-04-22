@@ -5,7 +5,24 @@ import { useNavigate } from "react-router-dom";
 function PartApprovalPage() {
   const navigate = useNavigate();
   const handleClick = () => {
+    localStorage.setItem(
+      "inputCheckedParts",
+      JSON.stringify(inputCheckedParts)
+    );
     navigate("/listingParts");
+  };
+
+  let inputCheckedParts = [];
+  const handleChange = (e) => {
+    if (e.target.checked) {
+      inputCheckedParts.push(parseInt(e.target.id));
+      console.log(inputCheckedParts);
+    } else {
+      inputCheckedParts = inputCheckedParts.filter(function (item) {
+        return item !== parseInt(e.target.id);
+      });
+      console.log(inputCheckedParts);
+    }
   };
   const carPartsInfo = [
     { id: 1, name: "Headlamp" },
@@ -19,6 +36,7 @@ function PartApprovalPage() {
   let checkedCarPartIds = [];
   for (let i = 0; i < carPartsResults.result.length; i++) {
     checkedCarPartIds.push(carPartsResults.result[i].id);
+    inputCheckedParts.push(carPartsResults.result[i].id);
   }
 
   console.log(checkedCarPartIds);
@@ -33,6 +51,7 @@ function PartApprovalPage() {
               <div key={carPart.id} className="flex items-center mt-5 mb-5">
                 <input
                   defaultChecked={checkedCarPartIds.includes(carPart.id)}
+                  onChange={handleChange}
                   id={carPart.id}
                   type="checkbox"
                   value=""

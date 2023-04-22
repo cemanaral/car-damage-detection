@@ -27,6 +27,20 @@ function BrandApprovalPage() {
     type = Toyota;
   }
 
+  const car_ids = {
+    Golf: 1,
+    Beetle: 2,
+    Fiesta: 3,
+    Mustang: 4,
+    Corolla: 5,
+    Yaris: 6,
+    Accent: 7,
+    Elantra: 8,
+  };
+
+  console.log(car_ids[model]);
+  localStorage.carId = car_ids[model];
+
   if (type) {
     options = type.map((el) => (
       <option key={el} defaultValue={model}>
@@ -46,7 +60,10 @@ function BrandApprovalPage() {
 
             <select
               value={brand}
-              onChange={(e) => setBrand(e.target.value)}
+              onChange={(e) => {
+                setBrand(e.target.value);
+                setModel(eval(e.target.value)[0]);
+              }}
               className=" w-96 mt-3 rounded h-8 bg-cyan-100"
               defaultValue={brand}
             >
