@@ -22,9 +22,6 @@ function App({ handleLogin }) {
   });
 
   const handleClick = () => {
-    // var myHeaders = new Headers();
-    // myHeaders.append("Content-Type", "application/json");
-
     var raw = JSON.stringify({
       firstName: input.name,
       lastName: input.surname,

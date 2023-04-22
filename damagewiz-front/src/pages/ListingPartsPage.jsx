@@ -1,11 +1,13 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
-import { Radio, Tabs } from "antd";
-import { useState } from "react";
+import { Tabs } from "antd";
+import { useState, useEffect } from "react";
+import ListingDetails from "../components/ListingDetails";
 
 function ListingPartsPage() {
   const [size, setSize] = useState("small");
+  const [fetchResults, setFetchResults] = useState([]);
   const onChange = (e) => {
     setSize(e.target.value);
   };
@@ -13,39 +15,80 @@ function ListingPartsPage() {
   const handleClick = () => {
     navigate("/summary");
   };
-  const carPartsInfo = [
-    { id: 1, name: "Headlamp" },
-    { id: 2, name: "Rear Bumper" },
-    { id: 3, name: "Door" },
-    { id: 4, name: "Hood" },
-    { id: 5, name: "Front Bumper" },
-  ];
+  const carPartsInfo = {
+    1: "Headlamp",
+    2: "Rear Bumper",
+    3: "Door",
+    4: "Hood",
+    5: "Front Bumper",
+  };
 
-  console.log(carPartsInfo[0].name);
+  const selectedPartIds = JSON.parse(localStorage.inputCheckedParts);
+  selectedPartIds.sort();
+  console.log(selectedPartIds);
 
   return (
     <div>
       <Navbar />
       <div className="flex items-center justify-center h-screen ">
-        <div className=" backdrop-blur-sm bg-black/50 p-12 rounded-xl ">
-          <div className="flex items-center justify-center">
+        <div className=" backdrop-blur-sm bg-black/50 p-12 rounded-xl">
+          <div className="items-center justify-center">
             <div>
               <Tabs
-                defaultActiveKey="1"
+                className="text-white"
                 type="card"
                 size={size}
-                items={new Array(5).fill(null).map((_, i) => {
-                  const id = String(i + 1);
+                items={selectedPartIds.map((i) => {
+                  const id = String(i);
+                  var requestOptions = {
+                    method: "GET",
+                    headers: { Authorization: "Bearer " + localStorage.token },
+                    redirect: "follow",
+                  };
+                  async function fetchCarParts() {
+                    useEffect(async () => {
+                      await fetch(
+                        "http://localhost:9090/car_part/" +
+                          localStorage.carId +
+                          "/" +
+                          id,
+                        requestOptions
+                      )
+                        .then((response) => response.json())
+                        .then((result) => {
+                          setFetchResults(result);
+                        })
+                        .catch((error) => console.log("error", error));
+                    }, []);
+                  }
+                  fetchCarParts();
                   return {
-                    label: `Card Tab ${id}`,
+                    label: carPartsInfo[id],
                     key: id,
-                    children: `Content of card tab ${id}`,
+                    children: (
+                      <div className="flex gap-3">
+                        {fetchResults.map((result) => {
+                          return (
+                            <ListingDetails
+                              key={result.id}
+                              name={result.mechanic.name}
+                              price={result.price}
+                              laborCost={result.laborCost}
+                              carName={
+                                result.car.brand + " " + result.car.model
+                              }
+                              partName={result.partName.name}
+                            />
+                          );
+                        })}
+                      </div>
+                    ),
                   };
                 })}
               />
             </div>
             <button
-              className="w-24 border h-8 rounded-full mt-20 bg-cyan-100 "
+              className="w-24 border h-8 rounded-full mt-20 bg-cyan-100  "
               onClick={handleClick}
             >
               Next
