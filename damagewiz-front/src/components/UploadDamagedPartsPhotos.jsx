@@ -7,27 +7,24 @@ function UploadDamagedPartsPhotos() {
   const handleChange = (e) => {
     setFiles(e.target.files);
   };
-  const handleUpload = () => {
+  async function handleUpload() {
     const data = new FormData();
     for (let i = 0; i < files.length; i++) {
-      data.append(`images[${i}]`, files[0]);
+      data.append("model_image", files[0]);
     }
-    // data.append('upload_preset', 'damageWiz')
-    // data.append('cloud_name', 'damagewiz')
-    fetch("https:", {
-      // Unknown endpoint error
-      method: "post",
+
+    var requestOptions = {
+      method: "POST",
       body: data,
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      redirect: "follow",
+    };
+
+    await fetch("http://35.208.145.26:8081/part", requestOptions)
+      .then((response) => response.text())
+      .then((result) => (localStorage.detectedParts = result))
+      .catch((error) => console.log("error", error));
     navigate("/partApproval");
-  };
+  }
   return (
     <>
       <div className="flex items-center justify-center">

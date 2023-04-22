@@ -25,7 +25,6 @@ function Navbar() {
       .then((result) => {
         setFirstName(result.firstName);
         setLastName(result.lastName);
-        console.log(firstName, lastName);
       })
       .catch((error) => console.log("error", error));
   };
