@@ -10,7 +10,7 @@ ford_model_detection_model = keras.models.load_model('models/Ford_Detection-2023
 ford_models = ["Fiesta", "Mustang"]
 
 hyundai_model_detection_model = keras.models.load_model('models/Hyundai_Detection-2023-03-27 21_09_27.955566.h5')
-hyundai_models = ["Accent", "Elentra"]
+hyundai_models = ["Accent", "Elantra"]
 
 volkswagen_model_detection_model = keras.models.load_model('models/Volkswagen_Detection-2023-03-27 21_56_43.286214.h5') 
 volkswagen_models = ["Beetle", "Golf"]
