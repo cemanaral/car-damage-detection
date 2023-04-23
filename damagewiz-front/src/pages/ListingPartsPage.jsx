@@ -76,7 +76,10 @@ function ListingPartsPage() {
     4: "Hood",
     5: "Front Bumper",
   };
-  localStorage.listingPageSelectedParts = JSON.stringify({});
+
+  useEffect(() => {
+    localStorage.listingPageSelectedParts = JSON.stringify({});
+  }, []);
 
   const selectedPartIds = JSON.parse(localStorage.inputCheckedParts);
   selectedPartIds.sort();
