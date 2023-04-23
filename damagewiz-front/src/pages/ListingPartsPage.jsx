@@ -15,17 +15,55 @@ function ListingPartsPage() {
   const [fetchResults_4, setFetchResults_4] = useState([]);
   const [fetchResults_5, setFetchResults_5] = useState([]);
 
-  const [value, setValue] = useState(1);
+  const [sortByRadioButton, setSortByRadioButton] = useState(1);
   const onChange = (e) => {
     console.log("radio checked", e.target.value);
-    setValue(e.target.value);
+    setSortByRadioButton(e.target.value);
   };
+  function getLocation() {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  }
+
+  function showPosition(position) {
+    console.log(
+      "Latitude: " +
+        position.coords.latitude +
+        " Longitude: " +
+        position.coords.longitude
+    );
+    localStorage.latitude = position.coords.latitude;
+    localStorage.longitude = position.coords.longitude;
+  }
+  getLocation();
+
+  function haversineDistance(lon1, lat1, lon2, lat2) {
+    function toRad(x) {
+      return (x * Math.PI) / 180;
+    }
+    var R = 6371; // km
+
+    var x1 = lat2 - lat1;
+    var dLat = toRad(x1);
+    var x2 = lon2 - lon1;
+    var dLon = toRad(x2);
+    var a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRad(lat1)) *
+        Math.cos(toRad(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+    return d;
+  }
 
   const sortByPrice = (a, b) =>
     parseInt(a.price) + parseInt(a.laborCost) >
     parseInt(b.price) + parseInt(b.laborCost)
       ? 1
       : -1;
+
+  const sortByDistance = (a, b) => (a.distance < b.distance ? 1 : -1);
 
   const navigate = useNavigate();
   const handleClick = () => {
@@ -43,6 +81,14 @@ function ListingPartsPage() {
   const selectedPartIds = JSON.parse(localStorage.inputCheckedParts);
   selectedPartIds.sort();
   console.log(selectedPartIds);
+
+  const checkRadio = (a, b) => {
+    if (sortByRadioButton === 1) {
+      return sortByPrice(a, b);
+    } else {
+      return sortByDistance(a, b);
+    }
+  };
 
   return (
     <div>
@@ -93,7 +139,18 @@ function ListingPartsPage() {
                     children: (
                       <div className="flex gap-3">
                         {eval("fetchResults_" + id)
-                          .sort(sortByPrice)
+                          .map((result) => {
+                            return {
+                              ...result,
+                              distance: haversineDistance(
+                                parseFloat(localStorage.longitude),
+                                parseFloat(localStorage.latitude),
+                                result.mechanic.longitude,
+                                result.mechanic.latitude
+                              ),
+                            };
+                          })
+                          .sort(checkRadio)
                           .map((result) => {
                             return (
                               <ListingDetails
@@ -106,8 +163,7 @@ function ListingPartsPage() {
                                   result.car.brand + " " + result.car.model
                                 }
                                 partName={result.partName.name}
-                                mechanicLatitude={result.mechanic.latitude}
-                                mechanicLongitude={result.mechanic.longitude}
+                                distance={result.distance}
                               />
                             );
                           })}
@@ -127,7 +183,7 @@ function ListingPartsPage() {
         </div>
         <Radio.Group
           onChange={onChange}
-          value={value}
+          value={sortByRadioButton}
           className="backdrop-blur-sm bg-black/50 p-4 rounded-xl h-20 mt-10"
         >
           <Space direction="vertical">
