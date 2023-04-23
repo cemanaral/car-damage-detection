@@ -6,11 +6,14 @@ import { useState, useEffect } from "react";
 import ListingDetails from "../components/ListingDetails";
 
 function ListingPartsPage() {
-  const [size, setSize] = useState("small");
-  const [fetchResults, setFetchResults] = useState([]);
-  const onChange = (e) => {
-    setSize(e.target.value);
-  };
+  const [fetchResults, setFetchResults] = useState({});
+
+  const [fetchResults_1, setFetchResults_1] = useState([]);
+  const [fetchResults_2, setFetchResults_2] = useState([]);
+  const [fetchResults_3, setFetchResults_3] = useState([]);
+  const [fetchResults_4, setFetchResults_4] = useState([]);
+  const [fetchResults_5, setFetchResults_5] = useState([]);
+
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/summary");
@@ -22,6 +25,7 @@ function ListingPartsPage() {
     4: "Hood",
     5: "Front Bumper",
   };
+  localStorage.listingPageSelectedParts = JSON.stringify({});
 
   const selectedPartIds = JSON.parse(localStorage.inputCheckedParts);
   selectedPartIds.sort();
@@ -37,7 +41,7 @@ function ListingPartsPage() {
               <Tabs
                 className="text-white"
                 type="card"
-                size={size}
+                // destroyInactiveTabPane={true}
                 items={selectedPartIds.map((i) => {
                   const id = String(i);
                   var requestOptions = {
@@ -45,32 +49,41 @@ function ListingPartsPage() {
                     headers: { Authorization: "Bearer " + localStorage.token },
                     redirect: "follow",
                   };
-                  async function fetchCarParts() {
-                    useEffect(async () => {
-                      await fetch(
-                        "http://localhost:9090/car_part/" +
-                          localStorage.carId +
-                          "/" +
-                          id,
-                        requestOptions
-                      )
-                        .then((response) => response.json())
-                        .then((result) => {
-                          setFetchResults(result);
-                        })
-                        .catch((error) => console.log("error", error));
-                    }, []);
+                  function fetchCarParts() {
+                    fetch(
+                      "http://localhost:9090/car_part/" +
+                        localStorage.carId +
+                        "/" +
+                        id,
+                      requestOptions
+                    )
+                      .then((response) => response.json())
+                      .then((result) => {
+                        eval(
+                          "setFetchResults_" +
+                            id +
+                            "(" +
+                            JSON.stringify(result) +
+                            ")"
+                        );
+                      })
+                      .catch((error) => console.log("error", error));
                   }
-                  fetchCarParts();
+                  useEffect(() => {
+                    fetchCarParts();
+                  }, []);
+                  console.log(fetchResults_1, fetchResults_2, fetchResults_3);
+
                   return {
                     label: carPartsInfo[id],
                     key: id,
                     children: (
                       <div className="flex gap-3">
-                        {fetchResults.map((result) => {
+                        {eval("fetchResults_" + id).map((result) => {
                           return (
                             <ListingDetails
                               key={result.id}
+                              partId={result.id}
                               name={result.mechanic.name}
                               price={result.price}
                               laborCost={result.laborCost}
@@ -88,10 +101,10 @@ function ListingPartsPage() {
               />
             </div>
             <button
-              className="w-24 border h-8 rounded-full mt-20 bg-cyan-100  "
+              className="w-48 border h-8 rounded-full mt-20 bg-cyan-100 ml-12 "
               onClick={handleClick}
             >
-              Next
+              Give an Order
             </button>
           </div>
         </div>

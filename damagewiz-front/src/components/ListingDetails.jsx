@@ -1,7 +1,26 @@
-import { Avatar, Card } from "antd";
+import { Avatar, Button, Card } from "antd";
+import { useState } from "react";
 
 const { Meta } = Card;
-function ListingDetails({ name, price, laborCost, carName, partName }) {
+function ListingDetails({ partId, name, price, laborCost, carName, partName }) {
+  const [buttonName, setButtonName] = useState("Add");
+  const handleClick = () => {
+    handeChange();
+  };
+
+  const handeChange = () => {
+    if (buttonName === "Add") {
+      let parts = JSON.parse(localStorage.listingPageSelectedParts);
+      parts[partId] = { name, price, laborCost, carName, partName };
+      localStorage.listingPageSelectedParts = JSON.stringify(parts);
+      setButtonName("Remove");
+    } else {
+      let parts = JSON.parse(localStorage.listingPageSelectedParts);
+      delete parts[partId];
+      localStorage.listingPageSelectedParts = JSON.stringify(parts);
+      setButtonName("Add");
+    }
+  };
   return (
     <Card
       style={{
@@ -13,7 +32,12 @@ function ListingDetails({ name, price, laborCost, carName, partName }) {
           src="https://media.istockphoto.com/id/1034249292/photo/set-of-car-parts-isolated-on-white-background-3d.jpg?s=612x612&w=0&k=20&c=BwXl3LzQau4v40nl9INYToE0mC1SYDA4gBkylspbYis="
         />
       }
-      actions={[<p> 📍 KM </p>, <p> 🏷️ {price} </p>, <p> 👨🏻‍🏭{laborCost} </p>]}
+      actions={[
+        <p> 📍 KM </p>,
+        <p> 🏷️ {price} </p>,
+        <p> 👨🏻‍🏭{laborCost} </p>,
+        <button onClick={handleClick}> {buttonName} </button>,
+      ]}
     >
       <Meta
         avatar={
