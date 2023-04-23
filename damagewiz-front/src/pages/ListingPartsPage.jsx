@@ -63,7 +63,7 @@ function ListingPartsPage() {
       ? 1
       : -1;
 
-  const sortByDistance = (a, b) => (a.distance < b.distance ? 1 : -1);
+  const sortByDistance = (a, b) => (a.distance > b.distance ? 1 : -1);
 
   const navigate = useNavigate();
   const handleClick = () => {
