@@ -4,14 +4,12 @@ import lombok.RequiredArgsConstructor;
 import net.damagewiz.damagewizweb.entity.User;
 import net.damagewiz.damagewizweb.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
+@CrossOrigin()
 public class UserController {
 
     private final UserService userService;

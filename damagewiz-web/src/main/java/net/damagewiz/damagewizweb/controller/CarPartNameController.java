@@ -4,16 +4,14 @@ import lombok.RequiredArgsConstructor;
 import net.damagewiz.damagewizweb.entity.CarPartName;
 import net.damagewiz.damagewizweb.service.CarPartNameService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/car_part_names")
+@CrossOrigin()
 public class CarPartNameController {
 
     private final CarPartNameService carPartNameService;

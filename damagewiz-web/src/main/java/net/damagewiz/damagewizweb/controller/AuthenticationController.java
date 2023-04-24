@@ -14,7 +14,7 @@ import javax.naming.AuthenticationException;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-
+@CrossOrigin()
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
