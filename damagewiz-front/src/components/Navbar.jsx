@@ -20,7 +20,7 @@ function Navbar() {
       },
       redirect: "follow",
     };
-    fetch("http://127.0.0.1:9090/user/" + localStorage.email, requestOptions)
+    fetch("http://127.0.0.1:8080/user/" + localStorage.email, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setFirstName(result.firstName);
