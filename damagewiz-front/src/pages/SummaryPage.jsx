@@ -7,6 +7,32 @@ function SummaryPage() {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/myOrders");
+
+    const selectedPart = Object.keys(
+      JSON.parse(localStorage.listingPageSelectedParts)
+    ).map((k) => parseInt(k));
+
+    console.log(selectedPart);
+
+    var raw = JSON.stringify({
+      username: localStorage.email,
+      carPartIds: selectedPart,
+    });
+
+    var requestOptions = {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + localStorage.token,
+        "Content-Type": "application/json",
+      },
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch("http://127.0.0.1:8080/my_order/add_order", requestOptions)
+      .then((response) => response.json())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
   };
 
   let parts = JSON.parse(localStorage.listingPageSelectedParts);
@@ -51,10 +77,10 @@ function SummaryPage() {
           <div className="flex mt-12 items-center justify-between ">
             <p className="text-white">Total: {totalPrice}$</p>
             <button
-              className=" w-20 border rounded-full bg-cyan-100 text-xl"
+              className=" w-36 border rounded-full bg-cyan-100 text-md"
               onClick={handleClick}
             >
-              Next
+              Submit Order
             </button>
           </div>
         </div>

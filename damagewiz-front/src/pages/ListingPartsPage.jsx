@@ -8,13 +8,11 @@ import { Input, Radio, Space } from "antd";
 
 function ListingPartsPage() {
   const [fetchResults, setFetchResults] = useState({});
-
   const [fetchResults_1, setFetchResults_1] = useState([]);
   const [fetchResults_2, setFetchResults_2] = useState([]);
   const [fetchResults_3, setFetchResults_3] = useState([]);
   const [fetchResults_4, setFetchResults_4] = useState([]);
   const [fetchResults_5, setFetchResults_5] = useState([]);
-
   const [sortByRadioButton, setSortByRadioButton] = useState(1);
   const onChange = (e) => {
     console.log("radio checked", e.target.value);
@@ -103,7 +101,6 @@ function ListingPartsPage() {
               <Tabs
                 className="text-white"
                 type="card"
-                // destroyInactiveTabPane={true}
                 items={selectedPartIds.map((i) => {
                   const id = String(i);
                   var requestOptions = {
@@ -134,7 +131,6 @@ function ListingPartsPage() {
                   useEffect(() => {
                     fetchCarParts();
                   }, []);
-                  console.log(fetchResults_1, fetchResults_2, fetchResults_3);
 
                   return {
                     label: carPartsInfo[id],
