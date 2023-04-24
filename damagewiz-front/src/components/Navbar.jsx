@@ -25,6 +25,7 @@ function Navbar() {
       .then((result) => {
         setFirstName(result.firstName);
         setLastName(result.lastName);
+        localStorage.userId = result.id;
       })
       .catch((error) => console.log("error", error));
   };
@@ -80,5 +81,3 @@ function Navbar() {
 }
 
 export default Navbar;
-
-// "proxy": "http://localhost:8080",
