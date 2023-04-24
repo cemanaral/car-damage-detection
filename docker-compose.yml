@@ -20,13 +20,7 @@ services:
       - db
     environment:
      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/damagewizdb
-  cors-proxy:
-    build: ./cors-proxy
-    ports:
-      - "9090:9090"
-    depends_on:
-      - svc
-      - db
+
 
 volumes:
   db:
