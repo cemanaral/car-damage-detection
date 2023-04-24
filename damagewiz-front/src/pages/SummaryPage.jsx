@@ -31,7 +31,6 @@ function SummaryPage() {
 
     fetch("http://127.0.0.1:8080/my_order/add_order", requestOptions)
       .then((response) => response.json())
-      .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
   };
 

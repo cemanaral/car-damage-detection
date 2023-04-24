@@ -81,7 +81,6 @@ function ListingPartsPage() {
 
   const selectedPartIds = JSON.parse(localStorage.inputCheckedParts);
   selectedPartIds.sort();
-  console.log(selectedPartIds);
 
   const checkRadio = (a, b) => {
     if (sortByRadioButton === 1) {
@@ -110,7 +109,7 @@ function ListingPartsPage() {
                   };
                   function fetchCarParts() {
                     fetch(
-                      "http://localhost:9090/car_part/" +
+                      "http://localhost:8080/car_part/" +
                         localStorage.carId +
                         "/" +
                         id,
