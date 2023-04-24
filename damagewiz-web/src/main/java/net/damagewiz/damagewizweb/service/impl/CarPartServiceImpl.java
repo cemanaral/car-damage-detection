@@ -27,6 +27,11 @@ public class CarPartServiceImpl implements CarPartService {
     }
 
     @Override
+    public List<CarPart> getCarPartsFromIds(List<Long> ids) {
+        return carPartRepository.findAllById(ids);
+    }
+
+    @Override
     public List<CarPart> getCarPartsByMechanicId(Long id) {
         List<CarPart> carPartList = carPartRepository.findAll();
         List<CarPart> carPartsByMechanicId = new ArrayList<>();

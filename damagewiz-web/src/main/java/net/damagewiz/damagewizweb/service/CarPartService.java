@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface CarPartService {
 
+    List<CarPart> getCarPartsFromIds(List<Long> ids);
     List<CarPart> getAllCarParts();
     List<CarPart> getCarPartsByMechanicId(Long id);
     List<CarPart> getCarPartsFromPythonAPI(Long carId, Long partId);
