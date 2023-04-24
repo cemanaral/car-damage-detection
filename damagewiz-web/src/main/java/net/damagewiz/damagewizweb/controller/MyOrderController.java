@@ -18,6 +18,7 @@ import java.util.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/my_order")
+@CrossOrigin()
 public class MyOrderController {
 
     private final MyOrderService myOrderService;

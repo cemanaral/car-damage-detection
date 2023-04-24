@@ -12,6 +12,7 @@ import java.util.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/mechanic")
+@CrossOrigin()
 public class MechanicController {
 
     private final MechanicService mechanicService;
