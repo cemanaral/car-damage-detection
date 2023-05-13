@@ -1,18 +1,10 @@
 import { Form, InputNumber, Popconfirm, Table, Typography } from "antd";
 import { useState } from "react";
 import { Input } from "antd";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 let originData = [];
-// let deneme = [];
-// for (let i = 0; i < 4; i++) {
-//   deneme.push({
-//     id: i,
-//     name: "Melisa",
-//     latitude: "Cem",
-//     longitude: "deneme",
-//     phoneNumber: "123",
-//   });
-// }
 
 var requestOptions = {
   method: "GET",
@@ -27,6 +19,7 @@ async function fetchMechanics() {
       console.log(result);
       for (let i = 0; i < result.length; i++) {
         originData.push({
+          key: i,
           id: result[i].id,
           name: result[i].name,
           latitude: result[i].latitude,
@@ -77,7 +70,13 @@ const EditableCell = ({
     </td>
   );
 };
-const App = () => {
+const AdminListMechanics = () => {
+  const [input, setInput] = useState({
+    name: "",
+    latitude: "",
+    longitude: "",
+    phoneNumber: "",
+  });
   const [form] = Form.useForm();
   const [data, setData] = useState(originData);
   const [editingKey, setEditingKey] = useState("");
@@ -96,11 +95,63 @@ const App = () => {
   const cancel = () => {
     setEditingKey("");
   };
+  const onInputChange = (e) => {
+    const { name, value } = e.target;
+    setInput((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const addMechanic = async () => {
+    var raw = JSON.stringify({
+      name: input.name,
+      latitude: input.latitude,
+      longitude: input.longitude,
+      phoneNumber: input.phoneNumber,
+    });
+
+    var requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch("http://127.0.0.1:8080/admin/add_mechanic", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+  };
+
+  const deleteMechanic = async (record) => {
+    var requestOptions = {
+      method: "DELETE",
+      headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      redirect: "follow",
+    };
+
+    fetch(
+      "http://localhost:8080/admin/delete_mechanic/" + record.id,
+      requestOptions
+    )
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+    setData(data.filter((item) => item.id !== record.id));
+  };
+
   const save = async (id) => {
+    console.log(id);
+    let newData;
+    let index;
     try {
       const row = await form.validateFields();
-      const newData = [...data];
-      const index = newData.findIndex((item) => id === item.id);
+      newData = [...data];
+      index = newData.findIndex((item) => id === item.id);
       if (index > -1) {
         const item = newData[index];
         newData.splice(index, 1, {
@@ -117,12 +168,36 @@ const App = () => {
     } catch (errInfo) {
       console.log("Validate Failed:", errInfo);
     }
+
+    var raw = JSON.stringify({
+      id: newData[index].id,
+      name: newData[index].name,
+      latitude: newData[index].latitude,
+      longitude: newData[index].longitude,
+      phoneNumber: newData[index].phoneNumber,
+    });
+
+    var requestOptions = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch("http://127.0.0.1:8080/admin/edit_mechanic", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
   };
+
   const columns = [
     {
       title: "id",
       dataIndex: "id",
-      width: "25%",
+      width: "3%",
       editable: true,
     },
     {
@@ -140,41 +215,51 @@ const App = () => {
     {
       title: "longitude",
       dataIndex: "longitude",
-      width: "40%",
+      width: "15%",
       editable: true,
     },
     {
       title: "phoneNumber",
       dataIndex: "phoneNumber",
-      width: "40%",
+      width: "15%",
       editable: true,
     },
     {
       title: "operation",
       dataIndex: "operation",
+      width: "15%",
       render: (_, record) => {
         const editable = isEditing(record);
-        return editable ? (
-          <span>
-            <Typography.Link
-              onClick={() => save(record.id)}
-              style={{
-                marginRight: 8,
-              }}
-            >
-              Save
+
+        return (
+          <div>
+            {editable ? (
+              <span>
+                <Typography.Link
+                  onClick={() => save(record.id)}
+                  style={{
+                    marginRight: 8,
+                  }}
+                >
+                  Save
+                </Typography.Link>
+                <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+                  <a>Cancel</a>
+                </Popconfirm>
+              </span>
+            ) : (
+              <Typography.Link
+                disabled={editingKey !== ""}
+                onClick={() => edit(record)}
+              >
+                Edit
+              </Typography.Link>
+            )}
+            <br />
+            <Typography.Link onClick={() => deleteMechanic(record)}>
+              Delete
             </Typography.Link>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
-            </Popconfirm>
-          </span>
-        ) : (
-          <Typography.Link
-            disabled={editingKey !== ""}
-            onClick={() => edit(record)}
-          >
-            Edit
-          </Typography.Link>
+          </div>
         );
       },
     },
@@ -195,22 +280,75 @@ const App = () => {
     };
   });
   return (
-    <Form form={form} component={false}>
-      <Table
-        components={{
-          body: {
-            cell: EditableCell,
-          },
-        }}
-        bordered
-        dataSource={data}
-        columns={mergedColumns}
-        rowClassName="editable-row"
-        pagination={{
-          onChange: cancel,
-        }}
-      />
-    </Form>
+    <div>
+      <Navbar />
+      <div className="mt-20 mb-48">
+        <Form form={form} component={false}>
+          <Table
+            components={{
+              body: {
+                cell: EditableCell,
+              },
+            }}
+            bordered
+            dataSource={data}
+            columns={mergedColumns}
+            rowClassName="editable-row"
+            pagination={{
+              onChange: cancel,
+            }}
+          />
+        </Form>
+        <div className="flex  items-center justify-center">
+          <form className="xs:w-96  mb-auto xs:mr-16 mt-20 bg-black/30 flex-column p-6 rounded-xl backdrop-blur">
+            <p className="text-white mt-4"> Mechanic Name </p>
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter Mechanic Name"
+              value={input.name}
+              onChange={onInputChange}
+              className="w-full h-8 rounded-md mt-2 bg-cyan-100 border"
+            ></input>
+            <p className="text-white mt-4"> Mechanic Latitude </p>
+            <input
+              type="latitude"
+              name="latitude"
+              placeholder="Enter Latitude"
+              value={input.latitude}
+              onChange={onInputChange}
+              className="w-full h-8 rounded-md mt-2 bg-cyan-100 border"
+            ></input>
+            <p className="text-white mt-4"> Mechanic Longitude </p>
+            <input
+              type="longitude"
+              name="longitude"
+              placeholder="Enter Longitude"
+              value={input.longitude}
+              onChange={onInputChange}
+              className="w-full h-8 rounded-md mt-2 bg-cyan-100 border"
+            ></input>
+            <p className="text-white mt-4"> Mechanic Phone Number </p>
+            <input
+              type="phoneNumber"
+              name="phoneNumber"
+              placeholder="Enter Phone Number"
+              value={input.phoneNumber}
+              onChange={onInputChange}
+              className="w-full h-8 rounded-md mt-2 bg-cyan-100 border"
+            ></input>
+            <button
+              className="border w-56 h-8 rounded-full mt-8 ml-16 bg-cyan-100"
+              id="button"
+              onClick={addMechanic}
+            >
+              Add Mechanic
+            </button>
+          </form>
+        </div>
+      </div>
+      <Footer />
+    </div>
   );
 };
-export default App;
+export default AdminListMechanics;
