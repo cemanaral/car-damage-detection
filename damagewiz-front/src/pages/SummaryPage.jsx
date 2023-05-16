@@ -6,8 +6,6 @@ import { Icon } from "@iconify/react";
 function SummaryPage() {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/myOrders");
-
     const selectedPart = Object.keys(
       JSON.parse(localStorage.listingPageSelectedParts)
     ).map((k) => parseInt(k));
@@ -32,6 +30,8 @@ function SummaryPage() {
     fetch("http://127.0.0.1:8080/my_order/add_order", requestOptions)
       .then((response) => response.json())
       .catch((error) => console.log("error", error));
+
+    setInterval(() => navigate("/myOrders"), 2000);
   };
 
   let parts = JSON.parse(localStorage.listingPageSelectedParts);
