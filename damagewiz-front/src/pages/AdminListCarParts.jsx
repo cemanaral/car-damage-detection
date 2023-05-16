@@ -297,11 +297,17 @@ const AdminListCarParts = () => {
     }
 
     var raw = JSON.stringify({
-      id: newData[index].id,
-      name: newData[index].name,
-      latitude: newData[index].latitude,
-      longitude: newData[index].longitude,
-      phoneNumber: newData[index].phoneNumber,
+      car: {
+        id: car,
+      },
+      mechanic: {
+        id: mechanic,
+      },
+      partName: {
+        id: carPart,
+      },
+      price: input.price,
+      laborCost: input.laborCost,
     });
 
     var requestOptions = {
@@ -314,7 +320,8 @@ const AdminListCarParts = () => {
       redirect: "follow",
     };
 
-    fetch("http://127.0.0.1:8080/admin/edit_mechanic", requestOptions)
+    alert(raw);
+    fetch("http://127.0.0.1:8080/admin/edit_carpart", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));

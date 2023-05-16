@@ -47,13 +47,13 @@ function MyOrders() {
       <Navbar />
       <div className="flex justify-center max-h-full">
         <div className="grid gap-5 mt-10 ">
-          {Object.keys(orders).map((orderId) => {
+          {Object.keys(orders).map((orderId, idx) => {
             let order = orders[orderId];
 
             return (
               <Card
-                key={orderId}
-                title={<span className="text-white">{orderId}</span>}
+                key={idx}
+                title={<span className="text-white">Order No: {idx + 1}</span>}
                 className=" bg-black/30 backdrop-blur "
               >
                 <div className="flex gap-3">
