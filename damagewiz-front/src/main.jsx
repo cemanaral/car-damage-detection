@@ -14,13 +14,7 @@ import SummaryPage from "./pages/SummaryPage";
 import MyOrders from "./pages/MyOrders";
 import AdminPage from "./pages/AdminPage";
 import AdminListMechanics from "./pages/AdminListMechanics";
-import AdminAddMechanics from "./pages/AdminAddMechanics";
-import AdminEditMechanics from "./pages/AdminEditMechanics";
-import AdminDeleteMechanics from "./pages/AdminDeleteMechanics";
 import AdminListCarParts from "./pages/AdminListCarParts";
-import AdminAddCarParts from "./pages/AdminAddCarParts";
-import AdminEditCarParts from "./pages/AdminEditCarParts";
-import AdminDeleteCarParts from "./pages/AdminDeleteCarParts";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Router>
@@ -37,13 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/myOrders" element={<MyOrders />} />
       <Route path="/admin" element={<AdminPage />} />
       <Route path="/listMechanic" element={<AdminListMechanics />} />
-      <Route path="/addMechanic" element={<AdminAddMechanics />} />
-      <Route path="/editMechanic" element={<AdminEditMechanics />} />
-      <Route path="/deleteMechanic" element={<AdminDeleteMechanics />} />
       <Route path="/listCarPart" element={<AdminListCarParts />} />
-      <Route path="/addCarPart" element={<AdminAddCarParts />} />
-      <Route path="/editCarPart" element={<AdminEditCarParts />} />
-      <Route path="/deleteCarPart" element={<AdminDeleteCarParts />} />
     </Routes>
   </Router>
 );

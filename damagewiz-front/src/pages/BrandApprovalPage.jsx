@@ -99,15 +99,3 @@ function BrandApprovalPage() {
 }
 
 export default BrandApprovalPage;
-
-{
-  /* <select
-  value={model}
-  onChange={(e) => setModel(e.target.value)}
-  className=" w-96 mt-3 rounded h-8 bg-cyan-100"
->
-  <option value="melisa"> melisa </option>
-  <option value="cem"> cem </option>
-  <option value="hasan"> hasan </option>
-</select> */
-}

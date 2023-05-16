@@ -11,6 +11,11 @@ function Navbar() {
     localStorage.clear();
     navigate("/");
   };
+
+  const handleOrder = () => {
+    navigate("/myOrders");
+  };
+
   const getUser = () => {
     var requestOptions = {
       method: "GET",
@@ -42,7 +47,10 @@ function Navbar() {
           </p>
         </div>
         <div className="ml-auto flex ">
-          <p className="text-white md:text-xl mr-5 hidden sm:block">
+          <p
+            className="text-white md:text-xl mr-5 hidden sm:block"
+            onClick={handleOrder}
+          >
             My Orders
           </p>
           <button
@@ -65,7 +73,12 @@ function Navbar() {
         <div className="flex  bg-black/30 backdrop-blur ">
           <div className="ml-auto bg-[#f5f5f5b0] w-32 h-24">
             <ul className="mt-5">
-              <li className="text-black md:text-xl text-center">My Orders</li>
+              <li
+                className="text-black md:text-xl text-center"
+                onClick={handleOrder}
+              >
+                My Orders
+              </li>
               <li
                 className="text-black md:text-xl text-center mt-2 "
                 onClick={handleClick}

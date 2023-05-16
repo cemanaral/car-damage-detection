@@ -16,7 +16,6 @@ async function fetchMechanics() {
   await fetch("http://127.0.0.1:8080/mechanic", requestOptions)
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
       for (let i = 0; i < result.length; i++) {
         originData.push({
           key: i,
@@ -30,12 +29,9 @@ async function fetchMechanics() {
       return result;
     })
     .catch((error) => console.log("error", error));
-  console.log("fetch çalıştı");
-  console.log(originData);
 }
 
 await fetchMechanics();
-console.log(originData);
 const EditableCell = ({
   editing,
   dataIndex,
@@ -219,7 +215,7 @@ const AdminListMechanics = () => {
       editable: true,
     },
     {
-      title: "phoneNumber",
+      title: "Phone Number",
       dataIndex: "phoneNumber",
       width: "15%",
       editable: true,
