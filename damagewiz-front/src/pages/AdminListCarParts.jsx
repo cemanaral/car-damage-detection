@@ -9,13 +9,12 @@ let mechanics = [];
 let cars = [];
 let carParts = [];
 
-var requestOptions = {
-  method: "GET",
-  headers: { Authorization: "Bearer " + localStorage.getItem("token") },
-  redirect: "follow",
-};
-
 async function fetchCarParts() {
+  var requestOptions = {
+    method: "GET",
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+    redirect: "follow",
+  };
   await fetch("http://127.0.0.1:8080/car_part", requestOptions)
     .then((response) => response.json())
     .then((result) => {
@@ -24,8 +23,7 @@ async function fetchCarParts() {
           key: i,
           id: result[i].id,
           name: result[i].partName.name,
-          brand: result[i].car.brand,
-          model: result[i].car.model,
+          car: result[i].car.brand + " " + result[i].car.model,
           mechanicName: result[i].mechanic.name,
           price: result[i].price,
           laborCost: result[i].laborCost,
@@ -182,8 +180,7 @@ const AdminListCarParts = () => {
     form.setFieldsValue({
       id: "",
       name: "",
-      brand: "",
-      model: "",
+      car: "",
       mechanicName: "",
       price: "",
       laborCost: "",
@@ -272,7 +269,6 @@ const AdminListCarParts = () => {
   };
 
   const save = async (id) => {
-    console.log(id);
     let newData;
     let index;
     try {
@@ -297,6 +293,7 @@ const AdminListCarParts = () => {
     }
 
     var raw = JSON.stringify({
+      id: id,
       car: {
         id: car,
       },
@@ -332,43 +329,115 @@ const AdminListCarParts = () => {
       title: "Id",
       dataIndex: "id",
       width: "3%",
-      editable: true,
+      editable: false,
     },
     {
       title: "Car Part Name",
       dataIndex: "name",
       width: "25%",
       editable: true,
+      render: (text, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <select
+            defaultValue={text}
+            style={{ width: 120 }}
+            onChange={(e) => setCarPart(e.target.value)}
+          >
+            {carParts.map((carPart) => (
+              <option value={carPart.name}>{carPart.name}</option>
+            ))}
+          </select>
+        ) : (
+          <div>{text}</div>
+        );
+      },
     },
     {
-      title: "Car Part Brand",
-      dataIndex: "brand",
+      title: "Car Name",
+      dataIndex: "car",
       width: "15%",
       editable: true,
-    },
-    {
-      title: "Car Part Model",
-      dataIndex: "model",
-      width: "15%",
-      editable: true,
+      render: (text, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <select
+            defaultValue={text}
+            style={{ width: 120 }}
+            onChange={(e) => setCar(e.target.value)}
+          >
+            {cars.map((car) => (
+              <option value={car.brand + " " + car.model}>
+                {car.brand} {car.model}
+              </option>
+            ))}
+          </select>
+        ) : (
+          <div>{text}</div>
+        );
+      },
     },
     {
       title: "Mechanic Name",
       dataIndex: "mechanicName",
       width: "15%",
       editable: true,
+      render: (text, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <select
+            defaultValue={text}
+            style={{ width: 120 }}
+            onChange={(e) => setMechanic(e.target.value)}
+          >
+            {mechanics.map((mechanic) => (
+              <option value={mechanic.name}>{mechanic.name}</option>
+            ))}
+          </select>
+        ) : (
+          <div>{text}</div>
+        );
+      },
     },
     {
       title: "Price",
       dataIndex: "price",
       width: "15%",
       editable: true,
+      render: (text, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <input
+            type="text"
+            name="price"
+            placeholder="Enter Price"
+            value={input.price}
+            onChange={onInputChange}
+          ></input>
+        ) : (
+          <div>{text}</div>
+        );
+      },
     },
     {
       title: "Labor Cost",
       dataIndex: "laborCost",
       width: "15%",
       editable: true,
+      render: (text, record) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <input
+            type="text"
+            name="laborCost"
+            placeholder="Enter Labor Cost"
+            value={input.laborCost}
+            onChange={onInputChange}
+          ></input>
+        ) : (
+          <div>{text}</div>
+        );
+      },
     },
     {
       title: "operation",
@@ -376,7 +445,6 @@ const AdminListCarParts = () => {
       width: "15%",
       render: (_, record) => {
         const editable = isEditing(record);
-
         return (
           <div>
             {editable ? (
@@ -410,26 +478,11 @@ const AdminListCarParts = () => {
       },
     },
   ];
-  const mergedColumns = columns.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record) => ({
-        record,
-        inputType: col.dataIndex === "id" ? "number" : "text",
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
   return (
     <div>
       <Navbar />
-      <div className="mt-20 mb-48">
-        <Form form={form} component={false} className="bg-slate-200">
+      <div className="mb-48">
+        <Form form={form} component={false}>
           <Table
             components={{
               body: {
@@ -438,7 +491,7 @@ const AdminListCarParts = () => {
             }}
             bordered
             dataSource={data}
-            columns={mergedColumns}
+            columns={columns}
             rowClassName="editable-row"
             pagination={{
               onChange: cancel,
@@ -446,7 +499,7 @@ const AdminListCarParts = () => {
           />
         </Form>
         <div className="flex items-center justify-center">
-          <form className="xs:w-96  mb-auto xs:mr-16 mt-20 bg-black/30 flex-column p-6 rounded-xl backdrop-blur">
+          <form className="xs:w-96  mb-auto xs:mr-16 bg-black/30 flex-column p-6 rounded-xl backdrop-blur">
             <p className="text-white mt-4"> Car Part</p>
             <select
               value={carPart}
