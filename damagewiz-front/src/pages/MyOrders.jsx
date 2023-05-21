@@ -45,7 +45,7 @@ function MyOrders() {
   return (
     <div>
       <Navbar />
-      <div className="flex justify-center max-h-full">
+      <div className="flex justify-center max-h-full h-screen ">
         <div className="grid gap-5 mt-10 ">
           {Object.keys(orders).map((orderId, idx) => {
             let order = orders[orderId];

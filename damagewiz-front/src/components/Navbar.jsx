@@ -7,13 +7,20 @@ function Navbar() {
   const [lastName, setLastName] = useState("");
   const toggle = () => setIsOpen(!isOpen);
   const navigate = useNavigate();
+
+  const handleDamageWiz = () => {
+    navigate("/start");
+  };
+
   const handleClick = () => {
     localStorage.clear();
     navigate("/");
   };
 
   const handleOrder = () => {
-    navigate("/myOrders");
+    if (localStorage.email != "admin") {
+      navigate("/myOrders");
+    }
   };
 
   const getUser = () => {
@@ -40,7 +47,9 @@ function Navbar() {
     <div>
       <div className="flex bg-[#F5F5F58C] h-10 items-center ">
         <div className="left-0 flex ml-5">
-          <p className="text-white md:text-xl">DamageWiz</p>
+          <p className="text-white md:text-xl" onClick={handleDamageWiz}>
+            DamageWiz
+          </p>
           <p className="text-white md:text-xl ml-5 hidden xs:block">
             {" "}
             Welcome, {firstName} {lastName}
