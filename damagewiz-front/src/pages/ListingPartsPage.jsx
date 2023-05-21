@@ -93,10 +93,10 @@ function ListingPartsPage() {
   return (
     <div>
       <Navbar />
-      <div className="flex justify-center h-screen gap-2">
-        <div className="backdrop-blur-sm w-6/12 bg-black/50 p-12 rounded-xl h-5/6 mt-10">
+      <div className="flex justify-center max-h-full gap-2 mb-20">
+        <div className="backdrop-blur-sm w-6/12 bg-black/50 p-12 rounded-xl mt-10">
           <div className="items-center justify-center">
-            <div className="flex">
+            <div className="grid ">
               <Tabs
                 className="text-white"
                 type="card"
@@ -135,7 +135,7 @@ function ListingPartsPage() {
                     label: carPartsInfo[id],
                     key: id,
                     children: (
-                      <div className="flex gap-3">
+                      <div className="grid grid-cols-2 gap-3 ">
                         {eval("fetchResults_" + id)
                           .map((result) => {
                             return {
