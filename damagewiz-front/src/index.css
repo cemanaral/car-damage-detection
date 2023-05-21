@@ -15,174 +15,59 @@ body {
   background-size: cover;
 }
 
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-content
-  > table
-  > thead
-  > tr
-  > th,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-header
-  > table
-  > thead
-  > tr
-  > th,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-body
-  > table
-  > thead
-  > tr
-  > th,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-summary
-  > table
-  > thead
-  > tr
-  > th,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-content
-  > table
-  > tbody
-  > tr
-  > th,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-header
-  > table
-  > tbody
-  > tr
-  > th,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-body
-  > table
-  > tbody
-  > tr
-  > th,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-summary
-  > table
-  > tbody
-  > tr
-  > th,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-content
-  > table
-  > tbody
-  > tr
-  > td,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-header
-  > table
-  > tbody
-  > tr
-  > td,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-body
-  > table
-  > tbody
-  > tr
-  > td,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-summary
-  > table
-  > tbody
-  > tr
-  > td,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-content
-  > table
-  > tfoot
-  > tr
-  > th,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-header
-  > table
-  > tfoot
-  > tr
-  > th,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-body
-  > table
-  > tfoot
-  > tr
-  > th,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-summary
-  > table
-  > tfoot
-  > tr
-  > th,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-content
-  > table
-  > tfoot
-  > tr
-  > td,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-header
-  > table
-  > tfoot
-  > tr
-  > td,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-body
-  > table
-  > tfoot
-  > tr
-  > td,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
-  .ant-table.ant-table-bordered
-  > .ant-table-container
-  > .ant-table-summary
-  > table
-  > tfoot
-  > tr
-  > td {
-  border-inline-end: 1px solid #f0f0f0;
-  backdrop-filter: blur(10);
-}
-
 :where(.css-dev-only-do-not-override-1fviqcj).ant-spin-nested-loading
   .ant-spin-container {
   position: relative;
   transition: opacity 0.3s;
   margin: 5%;
   background: inherit;
+}
+
+:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper .ant-table {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  list-style: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  background: transparent;
+  border-radius: 8px 8px 0 0;
+}
+
+:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
+  .ant-table-tbody
+  > tr.ant-table-row:hover
+  > th,
+:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
+  .ant-table-tbody
+  > tr.ant-table-row:hover
+  > td,
+:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
+  .ant-table-tbody
+  > tr
+  > th.ant-table-cell-row-hover
+  > td.ant-table-cell-row-hover {
+  background: silver;
+  color: black;
+}
+
+:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
+  .ant-table-thead
+  > tr
+  > th,
+:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
+  .ant-table-thead
+  > tr
+  > td {
+  position: relative;
+  color: rgba(0, 0, 0, 0.88);
+  font-weight: 600;
+  text-align: start;
+  background: slategray;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.2s ease;
 }

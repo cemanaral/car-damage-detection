@@ -330,12 +330,14 @@ const AdminListCarParts = () => {
       dataIndex: "id",
       width: "3%",
       editable: false,
+      className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
     },
     {
       title: "Car Part Name",
       dataIndex: "name",
       width: "25%",
       editable: true,
+      className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
       render: (text, record) => {
         const editable = isEditing(record);
         return editable ? (
@@ -358,6 +360,7 @@ const AdminListCarParts = () => {
       dataIndex: "car",
       width: "15%",
       editable: true,
+      className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
       render: (text, record) => {
         const editable = isEditing(record);
         return editable ? (
@@ -382,6 +385,7 @@ const AdminListCarParts = () => {
       dataIndex: "mechanicName",
       width: "15%",
       editable: true,
+      className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
       render: (text, record) => {
         const editable = isEditing(record);
         return editable ? (
@@ -404,6 +408,7 @@ const AdminListCarParts = () => {
       dataIndex: "price",
       width: "15%",
       editable: true,
+      className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
       render: (text, record) => {
         const editable = isEditing(record);
         return editable ? (
@@ -424,6 +429,7 @@ const AdminListCarParts = () => {
       dataIndex: "laborCost",
       width: "15%",
       editable: true,
+      className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
       render: (text, record) => {
         const editable = isEditing(record);
         return editable ? (
@@ -443,6 +449,7 @@ const AdminListCarParts = () => {
       title: "operation",
       dataIndex: "operation",
       width: "15%",
+      className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
       render: (_, record) => {
         const editable = isEditing(record);
         return (

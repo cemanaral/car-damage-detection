@@ -195,35 +195,42 @@ const AdminListMechanics = () => {
       dataIndex: "id",
       width: "3%",
       editable: true,
+      className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
     },
     {
       title: "name",
       dataIndex: "name",
       width: "25%",
       editable: true,
+      className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
     },
     {
       title: "latitude",
       dataIndex: "latitude",
       width: "15%",
       editable: true,
+      className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
     },
     {
       title: "longitude",
       dataIndex: "longitude",
       width: "15%",
       editable: true,
+      className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
     },
     {
       title: "Phone Number",
       dataIndex: "phoneNumber",
       width: "15%",
       editable: true,
+      className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
     },
     {
       title: "operation",
       dataIndex: "operation",
       width: "15%",
+      className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
+
       render: (_, record) => {
         const editable = isEditing(record);
 
@@ -278,7 +285,7 @@ const AdminListMechanics = () => {
   return (
     <div>
       <Navbar />
-      <div className="mt-20 mb-48">
+      <div className=" mb-48">
         <Form form={form} component={false}>
           <Table
             components={{
@@ -296,7 +303,7 @@ const AdminListMechanics = () => {
           />
         </Form>
         <div className="flex  items-center justify-center">
-          <form className="xs:w-96  mb-auto xs:mr-16 mt-20 bg-black/30 flex-column p-6 rounded-xl backdrop-blur">
+          <form className="xs:w-96  mb-auto xs:mr-16 bg-black/30 flex-column p-6 rounded-xl backdrop-blur">
             <p className="text-white mt-4"> Mechanic Name </p>
             <input
               type="text"
