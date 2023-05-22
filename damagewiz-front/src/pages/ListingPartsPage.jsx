@@ -93,7 +93,7 @@ function ListingPartsPage() {
   return (
     <div>
       <Navbar />
-      <div className="flex justify-center max-h-full gap-2 mb-20">
+      <div className="flex justify-center max-h-full   gap-2 mb-20">
         <div className="backdrop-blur-sm w-6/12 bg-black/50 p-12 rounded-xl mt-10">
           <div className="items-center justify-center">
             <div className="grid ">
@@ -194,7 +194,9 @@ function ListingPartsPage() {
           </Space>
         </Radio.Group>
       </div>
-      <Footer />
+      <div className="fixed bottom-0 left-0 right-0 z-0">
+        <Footer />
+      </div>
     </div>
   );
 }
