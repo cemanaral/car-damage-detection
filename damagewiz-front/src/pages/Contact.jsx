@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
 function Contact() {
   const navigate = useNavigate();
-  const handleClick = () => navigate("/");
+  const handleClick = () => navigate(-1);
   return (
     <div>
       <Icon

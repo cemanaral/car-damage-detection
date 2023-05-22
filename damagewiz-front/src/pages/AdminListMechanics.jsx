@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Input } from "antd";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { Icon } from "@iconify/react";
+import { useNavigate } from "react-router-dom";
 
 let originData = [];
 
@@ -76,6 +78,8 @@ const AdminListMechanics = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState(originData);
   const [editingKey, setEditingKey] = useState("");
+  const navigate = useNavigate();
+  const handleClick = () => navigate(-1);
   const isEditing = (record) => record.id === editingKey;
   const edit = (record) => {
     form.setFieldsValue({
@@ -286,6 +290,14 @@ const AdminListMechanics = () => {
     <div>
       <Navbar />
       <div className=" mb-48">
+        <Icon
+          icon="material-symbols:arrow-back-ios-new-rounded"
+          color="white"
+          width="2rem"
+          height="2rem"
+          className="absolute top-14 left-8 bg-black/30 rounded-full w-12 h-12 p-2"
+          onClick={handleClick}
+        />
         <Form form={form} component={false}>
           <Table
             components={{

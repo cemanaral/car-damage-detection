@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Input } from "antd";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { Icon } from "@iconify/react";
+import { useNavigate } from "react-router-dom";
 
 let originData = [];
 let mechanics = [];
@@ -170,7 +172,8 @@ const AdminListCarParts = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState(originData);
   const [editingKey, setEditingKey] = useState("");
-
+  const navigate = useNavigate();
+  const handleClick = () => navigate(-1);
   console.log(mechanics, cars, carParts);
   const [mechanic, setMechanic] = useState(mechanics[0].id);
   const [car, setCar] = useState(cars[0].id);
@@ -489,6 +492,14 @@ const AdminListCarParts = () => {
     <div>
       <Navbar />
       <div className="mb-48">
+        <Icon
+          icon="material-symbols:arrow-back-ios-new-rounded"
+          color="white"
+          width="2rem"
+          height="2rem"
+          className="absolute top-14 left-8 bg-black/30 rounded-full w-12 h-12 p-2"
+          onClick={handleClick}
+        />
         <Form form={form} component={false}>
           <Table
             components={{

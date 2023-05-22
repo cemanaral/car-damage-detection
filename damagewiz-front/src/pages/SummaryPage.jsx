@@ -5,6 +5,9 @@ import { Icon } from "@iconify/react";
 
 function SummaryPage() {
   const navigate = useNavigate();
+  const handlePreviousPage = () => {
+    navigate(-1);
+  };
   const handleClick = () => {
     const selectedPart = Object.keys(
       JSON.parse(localStorage.listingPageSelectedParts)
@@ -43,6 +46,14 @@ function SummaryPage() {
   return (
     <div>
       <Navbar />
+      <Icon
+        icon="material-symbols:arrow-back-ios-new-rounded"
+        color="white"
+        width="2rem"
+        height="2rem"
+        className="absolute top-14 left-8 bg-black/30 rounded-full w-12 h-12 p-2"
+        onClick={handlePreviousPage}
+      />
       <div className="flex items-center justify-center h-screen ">
         <div className=" backdrop-blur-sm bg-black/50 p-12 rounded-xl ">
           <h1 className="text-white text-2xl">Summary</h1>

@@ -14,28 +14,26 @@ function AdminPage() {
   return (
     <div>
       <Navbar />
-      <div className="flex items-center justify-center h-screen bg-black/30 backdrop-blur">
-        <div>
-          <div>
-            <h1 className="text-white text-3xl">For Mechanics Operations </h1>
-            <button
-              className="justify-center w-20 border h-8 rounded-full bg-cyan-100 text-lg mt-5 mb-5 ml-32 "
-              onClick={ListMechanicButton}
-            >
-              Click
-            </button>
-          </div>
-          <div>
-            <h1 className="text-white text-3xl ml-4">
-              For Car Parts Operations
-            </h1>
-            <button
-              className="justify-center self-center w-20 border h-8 rounded-full bg-cyan-100 text-lg mt-5 ml-32"
-              onClick={ListCarPartsButton}
-            >
-              Click
-            </button>
-          </div>
+      <div className="flex items-center justify-center h-screen bg-black/30 backdrop-blur gap-80">
+        <div className="bg-black/60 p-8 rounded-lg">
+          <p className="text-white text-3xl self-center">
+            For Mechanics Operations{" "}
+          </p>
+          <button
+            className="justify-center self-center w-20 border h-8 rounded-full bg-cyan-100 text-lg mt-5 ml-32 "
+            onClick={ListMechanicButton}
+          >
+            Click
+          </button>
+        </div>
+        <div className="bg-black/60 p-8 rounded-lg">
+          <p className="text-white text-3xl">For Car Parts Operations</p>
+          <button
+            className="justify-center self-center w-20 border h-8 rounded-full bg-cyan-100 text-lg mt-5 ml-32"
+            onClick={ListCarPartsButton}
+          >
+            Click
+          </button>
         </div>
       </div>
       <Footer />

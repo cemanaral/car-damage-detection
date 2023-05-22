@@ -2,9 +2,15 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Card } from "antd";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Icon } from "@iconify/react";
 import "../index.css";
 
 function MyOrders() {
+  const navigate = useNavigate();
+  const handlePreviousPage = () => {
+    navigate(-1);
+  };
   const [myOrderResponse, setOrders] = useState([]);
   useEffect(() => {
     var requestOptions = {
@@ -45,6 +51,14 @@ function MyOrders() {
   return (
     <div>
       <Navbar />
+      <Icon
+        icon="material-symbols:arrow-back-ios-new-rounded"
+        color="white"
+        width="2rem"
+        height="2rem"
+        className="absolute top-14 left-8 bg-black/30 rounded-full w-12 h-12 p-2"
+        onClick={handlePreviousPage}
+      />
       <div className="flex justify-center max-h-full h-screen ">
         <div className="grid gap-5 mt-10 ">
           {Object.keys(orders).map((orderId, idx) => {
@@ -93,7 +107,7 @@ function MyOrders() {
           ;
         </div>
       </div>
-      <div>
+      <div className="fixed inset-x-0 bottom-0">
         <Footer />
       </div>
     </div>
