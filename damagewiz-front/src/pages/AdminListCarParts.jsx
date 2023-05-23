@@ -175,6 +175,7 @@ const AdminListCarParts = () => {
   const navigate = useNavigate();
   const handleClick = () => navigate(-1);
   console.log(mechanics, cars, carParts);
+
   const [mechanic, setMechanic] = useState(mechanics[0].id);
   const [car, setCar] = useState(cars[0].id);
   const [carPart, setCarPart] = useState(carParts[0].id);
