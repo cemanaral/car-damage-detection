@@ -6,16 +6,16 @@ from tf_detection_wrapper import TfDetectionWrapper
 
 blueprint = Blueprint('model_detection', __name__)
 
-ford_model_detection_model = keras.models.load_model('models/Ford_Detection-2023-03-27 20_02_28.515633.h5')
+ford_model_detection_model = keras.models.load_model('models/model-detection-ford2023-05-22 23_35_14.164348.h5')
 ford_models = ["Fiesta", "Mustang"]
 
-hyundai_model_detection_model = keras.models.load_model('models/Hyundai_Detection-2023-03-27 21_09_27.955566.h5')
+hyundai_model_detection_model = keras.models.load_model('models/model-detection-hyundai2023-05-22 23_53_01.743859.h5')
 hyundai_models = ["Accent", "Elantra"]
 
-volkswagen_model_detection_model = keras.models.load_model('models/Volkswagen_Detection-2023-03-27 21_56_43.286214.h5') 
+volkswagen_model_detection_model = keras.models.load_model('models/model-detection-volkswagen2023-05-23 00_32_49.948807.h5') 
 volkswagen_models = ["Beetle", "Golf"]
 
-toyota_model_detection_model = keras.models.load_model('models/Toyota_Detection-2023-03-27 21_34_40.002761.h5')
+toyota_model_detection_model = keras.models.load_model('models/model-detection-toyota2023-05-23 00_12_46.181222.h5')
 toyota_models = ["Corolla", "Yaris"]
 
 brand_id_map = {
