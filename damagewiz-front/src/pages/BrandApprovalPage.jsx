@@ -2,6 +2,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Icon } from "@iconify/react";
 
 function BrandApprovalPage() {
   const location = useLocation();
@@ -11,6 +12,7 @@ function BrandApprovalPage() {
   const handleClick = () => {
     navigate("/partDetection");
   };
+  const handlePreviousPage = () => navigate(-1);
   const Ford = ["Fiesta", "Mustang"];
   const Hyundai = ["Accent", "Elantra"];
   const Volkswagen = ["Beetle", "Golf"];
@@ -53,6 +55,14 @@ function BrandApprovalPage() {
     <div>
       <div>
         <Navbar />
+        <Icon
+          icon="material-symbols:arrow-back-ios-new-rounded"
+          color="white"
+          width="2rem"
+          height="2rem"
+          className="absolute top-14 left-8 bg-black/30 rounded-full w-12 h-12 p-2"
+          onClick={handlePreviousPage}
+        />
         <div className="flex items-center justify-center h-screen ">
           <div className=" backdrop-blur-sm bg-black/50 p-12 rounded-xl">
             <h1 className="text-white text-3xl">Detection Results </h1>
@@ -99,15 +109,3 @@ function BrandApprovalPage() {
 }
 
 export default BrandApprovalPage;
-
-{
-  /* <select
-  value={model}
-  onChange={(e) => setModel(e.target.value)}
-  className=" w-96 mt-3 rounded h-8 bg-cyan-100"
->
-  <option value="melisa"> melisa </option>
-  <option value="cem"> cem </option>
-  <option value="hasan"> hasan </option>
-</select> */
-}

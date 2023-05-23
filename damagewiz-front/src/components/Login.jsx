@@ -42,8 +42,9 @@ function Login() {
             localStorage.token = result.token;
             localStorage.email = input.email;
             if (localStorage.token) {
-              console.log(localStorage.token);
-              navigate("/start");
+              if (localStorage.email === "admin") {
+                navigate("/admin");
+              } else navigate("/start");
             }
           }
         })

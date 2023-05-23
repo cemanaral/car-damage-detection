@@ -7,10 +7,22 @@ function Navbar() {
   const [lastName, setLastName] = useState("");
   const toggle = () => setIsOpen(!isOpen);
   const navigate = useNavigate();
+
+  const handleDamageWiz = () => {
+    navigate("/start");
+  };
+
   const handleClick = () => {
     localStorage.clear();
     navigate("/");
   };
+
+  const handleOrder = () => {
+    if (localStorage.email != "admin") {
+      navigate("/myOrders");
+    }
+  };
+
   const getUser = () => {
     var requestOptions = {
       method: "GET",
@@ -35,14 +47,19 @@ function Navbar() {
     <div>
       <div className="flex bg-[#F5F5F58C] h-10 items-center ">
         <div className="left-0 flex ml-5">
-          <p className="text-white md:text-xl">DamageWiz</p>
+          <p className="text-white md:text-xl" onClick={handleDamageWiz}>
+            DamageWiz
+          </p>
           <p className="text-white md:text-xl ml-5 hidden xs:block">
             {" "}
             Welcome, {firstName} {lastName}
           </p>
         </div>
         <div className="ml-auto flex ">
-          <p className="text-white md:text-xl mr-5 hidden sm:block">
+          <p
+            className="text-white md:text-xl mr-5 hidden sm:block"
+            onClick={handleOrder}
+          >
             My Orders
           </p>
           <button
@@ -65,7 +82,12 @@ function Navbar() {
         <div className="flex  bg-black/30 backdrop-blur ">
           <div className="ml-auto bg-[#f5f5f5b0] w-32 h-24">
             <ul className="mt-5">
-              <li className="text-black md:text-xl text-center">My Orders</li>
+              <li
+                className="text-black md:text-xl text-center"
+                onClick={handleOrder}
+              >
+                My Orders
+              </li>
               <li
                 className="text-black md:text-xl text-center mt-2 "
                 onClick={handleClick}

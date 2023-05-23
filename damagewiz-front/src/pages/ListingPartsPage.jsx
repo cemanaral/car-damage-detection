@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { Tabs } from "antd";
 import { useState, useEffect } from "react";
 import ListingDetails from "../components/ListingDetails";
-import { Input, Radio, Space } from "antd";
+import { Radio, Space } from "antd";
+import { Icon } from "@iconify/react";
 
 function ListingPartsPage() {
   const [fetchResults, setFetchResults] = useState({});
@@ -67,6 +68,9 @@ function ListingPartsPage() {
   const handleClick = () => {
     navigate("/summary");
   };
+  const handlePreviousPage = () => {
+    navigate(-1);
+  };
   const carPartsInfo = {
     1: "Headlamp",
     2: "Rear Bumper",
@@ -93,10 +97,18 @@ function ListingPartsPage() {
   return (
     <div>
       <Navbar />
-      <div className="flex justify-center h-screen gap-2">
-        <div className="backdrop-blur-sm w-6/12 bg-black/50 p-12 rounded-xl h-5/6 mt-10">
+      <Icon
+        icon="material-symbols:arrow-back-ios-new-rounded"
+        color="white"
+        width="2rem"
+        height="2rem"
+        className="absolute top-14 left-8 bg-black/30 rounded-full w-12 h-12 p-2"
+        onClick={handlePreviousPage}
+      />
+      <div className="flex justify-center max-h-full   gap-2 mb-20">
+        <div className="backdrop-blur-sm w-6/12 bg-black/50 p-12 rounded-xl mt-10">
           <div className="items-center justify-center">
-            <div className="flex">
+            <div className="grid ">
               <Tabs
                 className="text-white"
                 type="card"
@@ -135,7 +147,7 @@ function ListingPartsPage() {
                     label: carPartsInfo[id],
                     key: id,
                     children: (
-                      <div className="flex gap-3">
+                      <div className="grid grid-cols-2 gap-3 ">
                         {eval("fetchResults_" + id)
                           .map((result) => {
                             return {
@@ -194,7 +206,9 @@ function ListingPartsPage() {
           </Space>
         </Radio.Group>
       </div>
-      <Footer />
+      <div className="fixed bottom-0 left-0 right-0 z-0">
+        <Footer />
+      </div>
     </div>
   );
 }
