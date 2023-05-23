@@ -34,6 +34,6 @@ class TfDetectionWrapper:
         prediction_result_list = prediction_result[0].tolist()
         prediction_result_index = prediction_result_list.index(
             max(prediction_result_list))
-        percentage = f"{max(prediction_result_list) * 100:.2f}%"
+        percentage = f"{int(max(prediction_result_list) * 100)}%"
 
         return jsonify(percentage=percentage, result=self.labels[prediction_result_index], id=self.id_map[self.labels[prediction_result_index]]) if self.id_map else jsonify(percentage=percentage, result=self.labels[prediction_result_index])
