@@ -21,6 +21,10 @@ services:
     network_mode: "host"
     command: "--server.port=8082"
 
+  front:
+    build: ../damagewiz-front
+    network_mode: "host"
+
 volumes:
   db:
     driver: local
