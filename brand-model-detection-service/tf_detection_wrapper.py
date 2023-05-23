@@ -26,8 +26,10 @@ class TfDetectionWrapper:
 
         prediction_result = self.model.predict(X)
 
+        print(prediction_result)
         print(self.labels)
         print(prediction_result[0])
+
 
         prediction_result_list = prediction_result[0].tolist()
         prediction_result_index = prediction_result_list.index(
