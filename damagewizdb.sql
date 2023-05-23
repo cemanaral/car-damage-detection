@@ -29,7 +29,7 @@ CREATE TABLE `car` (
   `brand` varchar(255) NOT NULL,
   `model` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `car` (
 
 LOCK TABLES `car` WRITE;
 /*!40000 ALTER TABLE `car` DISABLE KEYS */;
-INSERT INTO `car` VALUES (1,'Volkswagen','Golf'),(2,'Volkswagen','Beetle'),(3,'Ford','Fiesta'),(4,'Ford','Mustang'),(5,'Toyota','Corolla'),(6,'Toyota','Yaris'),(7,'Hyundai','Accent'),(8,'Hyundai','Elantra');
+INSERT INTO `car` VALUES (1,'Volkswagen','Golf'),(2,'Volkswagen','Beetle'),(3,'Ford','Fiesta'),(4,'Ford','Mustang'),(5,'Toyota','Corolla'),(6,'Toyota','Yaris'),(7,'Hyundai','Accent'),(8,'Hyundai','Elantra'),(9,'Audi','A3'),(10,'Audi','TT'),(11,'Honda','Accord'),(12,'Honda','Civic');
 /*!40000 ALTER TABLE `car` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,7 +97,7 @@ CREATE TABLE `car_parts` (
 
 LOCK TABLES `car_parts` WRITE;
 /*!40000 ALTER TABLE `car_parts` DISABLE KEYS */;
-INSERT INTO `car_parts` VALUES (12,100,250,1,1,NULL,1),(13,100,250,1,1,NULL,1),(14,100,250,3,2,NULL,4),(15,100,300,5,2,NULL,3),(16,150,350,5,1,NULL,3),(17,100,200,5,1,NULL,1),(18,250,450,5,2,NULL,2),(19,300,100,3,1,NULL,4),(20,150,250,3,2,NULL,5),(21,100,200,3,1,NULL,3);
+INSERT INTO `car_parts` VALUES (12,100,350,1,1,NULL,1),(13,100,250,1,1,NULL,1),(14,100,250,3,2,NULL,4),(15,100,300,5,2,NULL,3),(16,150,350,5,1,NULL,3),(17,100,200,5,1,NULL,1),(18,250,450,5,2,NULL,2),(19,300,100,3,1,NULL,4),(20,150,250,3,2,NULL,5),(21,100,200,3,1,NULL,3);
 /*!40000 ALTER TABLE `car_parts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,4 +197,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-22 19:04:04
+-- Dump completed on 2023-05-23  3:01:04
