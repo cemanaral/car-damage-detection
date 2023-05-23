@@ -21,6 +21,9 @@ toyota_models = ["Corolla", "Yaris"]
 audi_model_detection_model = keras.models.load_model('models/model-detection-audi2023-05-22 22_40_41.475596.h5')
 audi_models = ["A3", "TT"]
 
+honda_model_detection_model = keras.models.load_model('models/model-detection-honda2023-05-22 23_11_21.426745.h5')
+honda_models = ["Accord", "Civic"]
+
 brand_id_map = {
     "Golf": 1,
     "Beetle": 2,
@@ -81,4 +84,13 @@ def audi_model_detection():
         f'file received from audi model detection endpoint {model_image.__dict__}')
     
     detector = TfDetectionWrapper(audi_model_detection_model, request.files['model_image'].read(), audi_models, brand_id_map)
+    return detector.detection_response()
+
+@blueprint.route('/honda', methods=['POST'])
+def honda_model_detection():
+    model_image = request.files['model_image']
+    current_app.logger.info(
+        f'file received from honda model detection endpoint {model_image.__dict__}')
+    
+    detector = TfDetectionWrapper(honda_model_detection_model, request.files['model_image'].read(), honda_models, brand_id_map)
     return detector.detection_response()
