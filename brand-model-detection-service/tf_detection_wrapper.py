@@ -26,11 +26,14 @@ class TfDetectionWrapper:
 
         prediction_result = self.model.predict(X)
 
+        print(prediction_result)
         print(self.labels)
         print(prediction_result[0])
+
 
         prediction_result_list = prediction_result[0].tolist()
         prediction_result_index = prediction_result_list.index(
             max(prediction_result_list))
+        percentage = f"{int(max(prediction_result_list) * 100)}%"
 
-        return jsonify(result=self.labels[prediction_result_index], id=self.id_map[self.labels[prediction_result_index]]) if self.id_map else jsonify(result=self.labels[prediction_result_index])
+        return jsonify(percentage=percentage, result=self.labels[prediction_result_index], id=self.id_map[self.labels[prediction_result_index]]) if self.id_map else jsonify(percentage=percentage, result=self.labels[prediction_result_index])

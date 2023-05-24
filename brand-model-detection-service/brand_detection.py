@@ -5,9 +5,9 @@ from tf_detection_wrapper import TfDetectionWrapper
 
 blueprint = Blueprint('brand_detection', __name__)
 
-brand_detection_model = keras.models.load_model('models/marka-detection-2023-04-08 14_39_33.073557.h5') 
+brand_detection_model = keras.models.load_model('models/marka-detection2023-05-23 01_43_28.605340.h5') 
 
-car_brands = ["Ford", "Hyundai", "Toyota", "Volkswagen"]
+car_brands = ['Audi', 'Ford', 'Honda', 'Hyundai', 'Toyota', 'Volkswagen']
 
 @blueprint.route('/', methods=['POST'])
 def brand_detection():
