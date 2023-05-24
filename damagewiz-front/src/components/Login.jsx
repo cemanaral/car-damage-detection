@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Register from "./Register";
 import { useNavigate } from "react-router-dom";
+
 function Login() {
   const [login, setLogin] = useState(true);
   const [token, setToken] = useState();
