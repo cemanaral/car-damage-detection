@@ -198,6 +198,9 @@ const AdminListCarParts = () => {
       ...record,
     });
     setEditingKey(record.id);
+    setCarPart(record.id);
+    setCar(record.id);
+    setMechanic(record.id);
   };
   const cancel = () => {
     setEditingKey("");
@@ -356,6 +359,18 @@ const AdminListCarParts = () => {
       .catch((error) => console.log("error", error));
   };
 
+  const filterCars = (cars) => (formatter) =>
+    cars.map((item) => ({
+      text: formatter(item),
+      value: formatter(item),
+    }));
+
+  const filterMechanics = (mechanics) => (formatter) =>
+    mechanics.map((item) => ({
+      text: formatter(item),
+      value: formatter(item),
+    }));
+
   const columns = [
     {
       title: "Id",
@@ -367,6 +382,30 @@ const AdminListCarParts = () => {
     {
       title: "Car Part Name",
       dataIndex: "name",
+      filters: [
+        {
+          text: "Headlamp",
+          value: "Headlamp",
+        },
+        {
+          text: "Rear Bumper",
+          value: "Rear Bumper",
+        },
+        {
+          text: "Door",
+          value: "Door",
+        },
+        {
+          text: "Hood",
+          value: "Hood",
+        },
+        {
+          text: "Front Bumper",
+          value: "Front Bumper",
+        },
+      ],
+      onFilter: (value, record) => record.name.indexOf(value) === 0,
+      filterSearch: true,
       width: "25%",
       editable: true,
       className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
@@ -377,6 +416,7 @@ const AdminListCarParts = () => {
             defaultValue={text}
             style={{ width: 120 }}
             onChange={(e) => setCarPart(e.target.value)}
+            className="rounded h-7 text-black"
           >
             {carParts.map((carPart) => (
               <option value={carPart.name}>{carPart.name}</option>
@@ -390,6 +430,9 @@ const AdminListCarParts = () => {
     {
       title: "Car Name",
       dataIndex: "car",
+      filters: filterCars(cars)((i) => i.brand + " " + i.model),
+      onFilter: (value, record) => record.car.indexOf(value) === 0,
+      filterSearch: true,
       width: "15%",
       editable: true,
       className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
@@ -400,6 +443,7 @@ const AdminListCarParts = () => {
             defaultValue={text}
             style={{ width: 120 }}
             onChange={(e) => setCar(e.target.value)}
+            className="rounded h-7 text-black"
           >
             {cars.map((car) => (
               <option value={car.brand + " " + car.model}>
@@ -415,6 +459,9 @@ const AdminListCarParts = () => {
     {
       title: "Mechanic Name",
       dataIndex: "mechanicName",
+      filters: filterMechanics(mechanics)((i) => i.name),
+      onFilter: (value, record) => record.mechanicName.indexOf(value) === 0,
+      filterSearch: true,
       width: "15%",
       editable: true,
       className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
@@ -425,6 +472,7 @@ const AdminListCarParts = () => {
             defaultValue={text}
             style={{ width: 120 }}
             onChange={(e) => setMechanic(e.target.value)}
+            className="rounded h-7 text-black"
           >
             {mechanics.map((mechanic) => (
               <option value={mechanic.name}>{mechanic.name}</option>
@@ -450,6 +498,7 @@ const AdminListCarParts = () => {
             placeholder="Enter Price"
             value={input.price}
             onChange={onInputChange}
+            className="rounded h-7 text-black"
           ></input>
         ) : (
           <div>{text}</div>
@@ -471,6 +520,7 @@ const AdminListCarParts = () => {
             placeholder="Enter Labor Cost"
             value={input.laborCost}
             onChange={onInputChange}
+            className="rounded h-7 text-black"
           ></input>
         ) : (
           <div>{text}</div>
