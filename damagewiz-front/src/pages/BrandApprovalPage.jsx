@@ -17,8 +17,6 @@ function BrandApprovalPage() {
   const Hyundai = ["Accent", "Elantra"];
   const Volkswagen = ["Beetle", "Golf"];
   const Toyota = ["Corolla", "Yaris"];
-  const Audi = ["A3", "TT"];
-  const Honda = ["Accord", "Civic"];
   let type = null;
   let options = null;
   if (brand === "Ford") {
@@ -29,10 +27,6 @@ function BrandApprovalPage() {
     type = Volkswagen;
   } else if (brand === "Toyota") {
     type = Toyota;
-  } else if (brand === "Audi") {
-    type = Audi;
-  } else if (brand === "Honda") {
-    type = Honda;
   }
 
   const car_ids = {
@@ -44,10 +38,6 @@ function BrandApprovalPage() {
     Yaris: 6,
     Accent: 7,
     Elantra: 8,
-    A3: 9,
-    TT: 10,
-    Accord: 11,
-    Civic: 12,
   };
 
   console.log(car_ids[model]);
@@ -76,12 +66,6 @@ function BrandApprovalPage() {
         <div className="flex items-center justify-center h-screen ">
           <div className=" backdrop-blur-sm bg-black/50 p-12 rounded-xl">
             <h1 className="text-white text-3xl">Detection Results </h1>
-            <h2 className="text-white mt-10">
-              {" "}
-              We detected
-              {" " + brand + " "}
-              {model} with probability of {localStorage.percentage}
-            </h2>
             <h1 className="text-white text-2xl mt-10">Brand</h1>
 
             <select
@@ -97,8 +81,6 @@ function BrandApprovalPage() {
               <option>Hyundai</option>
               <option>Toyota</option>
               <option>Volkswagen</option>
-              <option>Audi</option>
-              <option>Honda</option>
             </select>
             <h1 className="text-white text-2xl mt-10">Model</h1>
 

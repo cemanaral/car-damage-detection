@@ -195,28 +195,28 @@ const AdminListMechanics = () => {
 
   const columns = [
     {
-      title: "Id",
+      title: "id",
       dataIndex: "id",
       width: "3%",
-      editable: false,
+      editable: true,
       className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
     },
     {
-      title: "Name",
+      title: "name",
       dataIndex: "name",
       width: "25%",
       editable: true,
       className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
     },
     {
-      title: "Latitude",
+      title: "latitude",
       dataIndex: "latitude",
       width: "15%",
       editable: true,
       className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
     },
     {
-      title: "Longitude",
+      title: "longitude",
       dataIndex: "longitude",
       width: "15%",
       editable: true,
@@ -230,7 +230,7 @@ const AdminListMechanics = () => {
       className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
     },
     {
-      title: "Operation",
+      title: "operation",
       dataIndex: "operation",
       width: "15%",
       className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
