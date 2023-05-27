@@ -44,7 +44,7 @@ function UploadPhotos() {
       .then((res) => res.json())
       .then((data) => {
         detectedModel = data;
-        localStorage.percentage = detectedModel.percentage;
+        console.log(detectedModel);
       })
       .catch((err) => {
         console.log(err);

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Register from "./Register";
 import { useNavigate } from "react-router-dom";
-
 function Login() {
   const [login, setLogin] = useState(true);
   const [token, setToken] = useState();
@@ -18,42 +17,42 @@ function Login() {
     login ? setLogin(false) : setLogin(true);
   };
 
-  async function handleClick(e) {
-    console.log("Melisa");
+  const handleClick = async (e) => {
     e.preventDefault();
-    console.log(input.email, input.password);
-    if (input.email && input.password) {
-      await getToken();
-    } else {
-      alert("Please enter all the fields");
-    }
-  }
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-  async function getToken() {
     var raw = JSON.stringify({
       email: input.email,
       password: input.password,
     });
+
     var requestOptions = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: myHeaders,
       body: raw,
       redirect: "follow",
     };
-
-    await fetch("http://127.0.0.1:8080/auth/authenticate", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        localStorage.token = result.token;
-        localStorage.email = input.email;
-        if (localStorage.token) {
-          if (localStorage.email === "admin") {
-            navigate("/admin");
-          } else navigate("/start");
-        }
-      })
-      .catch((error) => alert(error, error));
-  }
+    if (input.email && input.password) {
+      fetch("http://127.0.0.1:8080/auth/authenticate", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          setToken(result.token);
+          if (token) {
+            localStorage.token = result.token;
+            localStorage.email = input.email;
+            if (localStorage.token) {
+              if (localStorage.email === "admin") {
+                navigate("/admin");
+              } else navigate("/start");
+            }
+          }
+        })
+        .catch((error) => alert("Wrong Username or Password", error));
+    } else {
+      alert("Please enter all the fields");
+    }
+  };
 
   const onInputChange = (e) => {
     const { name, value } = e.target;

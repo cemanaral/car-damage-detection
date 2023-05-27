@@ -17,19 +17,19 @@ function AdminPage() {
       <div className="flex items-center justify-center h-screen bg-black/30 backdrop-blur gap-80">
         <div className="bg-black/60 p-8 rounded-lg">
           <p className="text-white text-3xl self-center">
-            Mechanics Operations{" "}
+            For Mechanics Operations{" "}
           </p>
           <button
-            className="justify-center self-center w-20 border h-8 rounded-full bg-cyan-100 text-lg mt-5 ml-24 "
+            className="justify-center self-center w-20 border h-8 rounded-full bg-cyan-100 text-lg mt-5 ml-32 "
             onClick={ListMechanicButton}
           >
             Click
           </button>
         </div>
         <div className="bg-black/60 p-8 rounded-lg">
-          <p className="text-white text-3xl">Car Parts Operations</p>
+          <p className="text-white text-3xl">For Car Parts Operations</p>
           <button
-            className="justify-center self-center w-20 border h-8 rounded-full bg-cyan-100 text-lg mt-5 ml-24"
+            className="justify-center self-center w-20 border h-8 rounded-full bg-cyan-100 text-lg mt-5 ml-32"
             onClick={ListCarPartsButton}
           >
             Click

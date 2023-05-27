@@ -2,7 +2,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import { Input } from "antd";
 
 function PartApprovalPage() {
   const navigate = useNavigate();
@@ -15,11 +14,6 @@ function PartApprovalPage() {
   };
   const handlePreviousPage = () => {
     navigate(-1);
-  };
-
-  const { TextArea } = Input;
-  const onChange = (e) => {
-    console.log(e);
   };
 
   let inputCheckedParts = [];
@@ -63,7 +57,7 @@ function PartApprovalPage() {
       />
       <div className="flex items-center justify-center h-screen ">
         <div className=" backdrop-blur-sm bg-black/50 p-12 rounded-xl ">
-          <h1 className="text-white text-2xl mb-10">Detected Parts</h1>
+          <h1 className="text-white text-2xl">Detected Parts</h1>
           {carPartsInfo.map((carPart) => {
             return (
               <div key={carPart.id} className="flex items-center mt-5 mb-5">
@@ -84,12 +78,6 @@ function PartApprovalPage() {
               </div>
             );
           })}
-          <TextArea
-            placeholder="Extra information"
-            allowClear
-            onChange={onChange}
-            className="mt-5"
-          />
           <div className="flex items-center justify-center">
             <button
               className="w-24 border h-8 rounded-full mt-10 bg-cyan-100 "
