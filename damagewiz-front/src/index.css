@@ -15,7 +15,7 @@ body {
   background-size: cover;
 }
 
-:where(.css-dev-only-do-not-override-1fviqcj).ant-spin-nested-loading
+:where(.css-dev-only-do-not-override-w8mnev).ant-spin-nested-loading
   .ant-spin-container {
   position: relative;
   transition: opacity 0.3s;
@@ -23,7 +23,7 @@ body {
   background: inherit;
 }
 
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper .ant-table {
+:where(.css-dev-only-do-not-override-w8mnev).ant-table-wrapper .ant-table {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -38,15 +38,15 @@ body {
   border-radius: 8px 8px 0 0;
 }
 
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
+:where(.css-dev-only-do-not-override-w8mnev).ant-table-wrapper
   .ant-table-tbody
   > tr.ant-table-row:hover
   > th,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
+:where(.css-dev-only-do-not-override-w8mnev).ant-table-wrapper
   .ant-table-tbody
   > tr.ant-table-row:hover
   > td,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
+:where(.css-dev-only-do-not-override-w8mnev).ant-table-wrapper
   .ant-table-tbody
   > tr
   > th.ant-table-cell-row-hover
@@ -55,11 +55,11 @@ body {
   color: black;
 }
 
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
+:where(.css-dev-only-do-not-override-w8mnev).ant-table-wrapper
   .ant-table-thead
   > tr
   > th,
-:where(.css-dev-only-do-not-override-1fviqcj).ant-table-wrapper
+:where(.css-dev-only-do-not-override-w8mnev).ant-table-wrapper
   .ant-table-thead
   > tr
   > td {
