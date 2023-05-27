@@ -18,42 +18,42 @@ function Login() {
     login ? setLogin(false) : setLogin(true);
   };
 
-  const handleClick = async (e) => {
+  async function handleClick(e) {
+    console.log("Melisa");
     e.preventDefault();
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
+    console.log(input.email, input.password);
+    if (input.email && input.password) {
+      await getToken();
+    } else {
+      alert("Please enter all the fields");
+    }
+  }
 
+  async function getToken() {
     var raw = JSON.stringify({
       email: input.email,
       password: input.password,
     });
-
     var requestOptions = {
       method: "POST",
-      headers: myHeaders,
+      headers: { "Content-Type": "application/json" },
       body: raw,
       redirect: "follow",
     };
-    if (input.email && input.password) {
-      fetch("http://127.0.0.1:8080/auth/authenticate", requestOptions)
-        .then((response) => response.json())
-        .then((result) => {
-          setToken(result.token);
-          if (token) {
-            localStorage.token = result.token;
-            localStorage.email = input.email;
-            if (localStorage.token) {
-              if (localStorage.email === "admin") {
-                navigate("/admin");
-              } else navigate("/start");
-            }
-          }
-        })
-        .catch((error) => alert("Wrong Username or Password", error));
-    } else {
-      alert("Please enter all the fields");
-    }
-  };
+
+    await fetch("http://127.0.0.1:8080/auth/authenticate", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        localStorage.token = result.token;
+        localStorage.email = input.email;
+        if (localStorage.token) {
+          if (localStorage.email === "admin") {
+            navigate("/admin");
+          } else navigate("/start");
+        }
+      })
+      .catch((error) => alert(error, error));
+  }
 
   const onInputChange = (e) => {
     const { name, value } = e.target;
