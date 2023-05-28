@@ -19,22 +19,13 @@ function Login() {
   };
 
   async function handleClick(e) {
-    console.log("Melisa");
     e.preventDefault();
-<<<<<<< HEAD
-=======
-    console.log(input.email, input.password);
->>>>>>> parent of 3b955c0 (Revert "login solved (#26)")
     if (input.email && input.password) {
       await getToken();
     } else {
       alert("Please enter all the fields");
     }
-<<<<<<< HEAD
-  };
-=======
   }
->>>>>>> parent of 3b955c0 (Revert "login solved (#26)")
 
   async function getToken() {
     var raw = JSON.stringify({
@@ -47,10 +38,7 @@ function Login() {
       body: raw,
       redirect: "follow",
     };
-<<<<<<< HEAD
-=======
 
->>>>>>> parent of 3b955c0 (Revert "login solved (#26)")
     await fetch("http://127.0.0.1:8080/auth/authenticate", requestOptions)
       .then((response) => response.json())
       .then((result) => {
@@ -62,11 +50,7 @@ function Login() {
           } else navigate("/start");
         }
       })
-<<<<<<< HEAD
       .catch((error) => alert("Wrong Username or Password", error));
-=======
-      .catch((error) => alert(error, error));
->>>>>>> parent of 3b955c0 (Revert "login solved (#26)")
   }
 
   const onInputChange = (e) => {
