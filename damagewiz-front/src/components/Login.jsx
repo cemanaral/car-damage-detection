@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Register from "./Register";
 import { useNavigate } from "react-router-dom";
+
 function Login() {
   const [login, setLogin] = useState(true);
   const [token, setToken] = useState();
@@ -17,27 +18,27 @@ function Login() {
     login ? setLogin(false) : setLogin(true);
   };
 
-  const handleClick = async (e) => {
+  async function handleClick(e) {
     e.preventDefault();
     if (input.email && input.password) {
       await getToken();
     } else {
       alert("Please enter all the fields");
     }
-  };
+  }
 
   async function getToken() {
     var raw = JSON.stringify({
       email: input.email,
       password: input.password,
     });
-
     var requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: raw,
       redirect: "follow",
     };
+
     await fetch("http://127.0.0.1:8080/auth/authenticate", requestOptions)
       .then((response) => response.json())
       .then((result) => {
