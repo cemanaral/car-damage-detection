@@ -47,21 +47,21 @@ function Navbar() {
     <div>
       <div className="flex bg-[#F5F5F58C] h-10 items-center ">
         <div className="left-0 flex ml-5">
-          <p className="text-white md:text-xl" onClick={handleDamageWiz}>
+          <button className="text-white md:text-xl" onClick={handleDamageWiz}>
             DamageWiz
-          </p>
+          </button>
           <p className="text-white md:text-xl ml-5 hidden xs:block">
             {" "}
             Welcome, {firstName} {lastName}
           </p>
         </div>
         <div className="ml-auto flex ">
-          <p
+          <button
             className="text-white md:text-xl mr-5 hidden sm:block"
             onClick={handleOrder}
           >
             My Orders
-          </p>
+          </button>
           <button
             className="text-white md:text-xl mr-5 hidden sm:block"
             onClick={handleClick}

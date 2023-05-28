@@ -175,9 +175,17 @@ const AdminListCarParts = () => {
   const navigate = useNavigate();
   const handleClick = () => navigate(-1);
   console.log(mechanics, cars, carParts);
+
   const [mechanic, setMechanic] = useState(mechanics[0].id);
   const [car, setCar] = useState(cars[0].id);
   const [carPart, setCarPart] = useState(carParts[0].id);
+
+  const [mechanicForDropdown, setMechanicForDropdown] = useState(
+    mechanics[0].id
+  );
+  const [carForDropdown, setCarForDropdown] = useState(cars[0].id);
+  const [carPartForDropdown, setCarPartForDropdown] = useState(carParts[0].id);
+
   const isEditing = (record) => record.id === editingKey;
   const edit = (record) => {
     form.setFieldsValue({
@@ -190,6 +198,9 @@ const AdminListCarParts = () => {
       ...record,
     });
     setEditingKey(record.id);
+    setCarPart(record.id);
+    setCar(record.id);
+    setMechanic(record.id);
   };
   const cancel = () => {
     setEditingKey("");
@@ -209,10 +220,24 @@ const AdminListCarParts = () => {
     }
   }
 
+  for (let i = 0; i < mechanics.length; i++) {
+    if (mechanics[i].name === mechanicForDropdown) {
+      setMechanicForDropdown(mechanics[i].id);
+      console.log(mechanicForDropdown);
+    }
+  }
+
   for (let i = 0; i < cars.length; i++) {
     if (cars[i].brand + " " + cars[i].model === car) {
       setCar(cars[i].id);
       console.log(car);
+    }
+  }
+
+  for (let i = 0; i < cars.length; i++) {
+    if (cars[i].brand + " " + cars[i].model === carForDropdown) {
+      setCarForDropdown(cars[i].id);
+      console.log(carForDropdown);
     }
   }
 
@@ -223,16 +248,23 @@ const AdminListCarParts = () => {
     }
   }
 
+  for (let i = 0; i < carParts.length; i++) {
+    if (carParts[i].name === carPartForDropdown) {
+      setCarPartForDropdown(carParts[i].id);
+      console.log(carPartForDropdown);
+    }
+  }
+
   const addCarPart = async () => {
     var raw = JSON.stringify({
       car: {
-        id: car,
+        id: carForDropdown,
       },
       mechanic: {
-        id: mechanic,
+        id: mechanicForDropdown,
       },
       partName: {
-        id: carPart,
+        id: carPartForDropdown,
       },
       price: input.price,
       laborCost: input.laborCost,
@@ -327,6 +359,18 @@ const AdminListCarParts = () => {
       .catch((error) => console.log("error", error));
   };
 
+  const filterCars = (cars) => (formatter) =>
+    cars.map((item) => ({
+      text: formatter(item),
+      value: formatter(item),
+    }));
+
+  const filterMechanics = (mechanics) => (formatter) =>
+    mechanics.map((item) => ({
+      text: formatter(item),
+      value: formatter(item),
+    }));
+
   const columns = [
     {
       title: "Id",
@@ -338,6 +382,30 @@ const AdminListCarParts = () => {
     {
       title: "Car Part Name",
       dataIndex: "name",
+      filters: [
+        {
+          text: "Headlamp",
+          value: "Headlamp",
+        },
+        {
+          text: "Rear Bumper",
+          value: "Rear Bumper",
+        },
+        {
+          text: "Door",
+          value: "Door",
+        },
+        {
+          text: "Hood",
+          value: "Hood",
+        },
+        {
+          text: "Front Bumper",
+          value: "Front Bumper",
+        },
+      ],
+      onFilter: (value, record) => record.name.indexOf(value) === 0,
+      filterSearch: true,
       width: "25%",
       editable: true,
       className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
@@ -348,6 +416,7 @@ const AdminListCarParts = () => {
             defaultValue={text}
             style={{ width: 120 }}
             onChange={(e) => setCarPart(e.target.value)}
+            className="rounded h-7 text-black"
           >
             {carParts.map((carPart) => (
               <option value={carPart.name}>{carPart.name}</option>
@@ -361,6 +430,9 @@ const AdminListCarParts = () => {
     {
       title: "Car Name",
       dataIndex: "car",
+      filters: filterCars(cars)((i) => i.brand + " " + i.model),
+      onFilter: (value, record) => record.car.indexOf(value) === 0,
+      filterSearch: true,
       width: "15%",
       editable: true,
       className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
@@ -371,6 +443,7 @@ const AdminListCarParts = () => {
             defaultValue={text}
             style={{ width: 120 }}
             onChange={(e) => setCar(e.target.value)}
+            className="rounded h-7 text-black"
           >
             {cars.map((car) => (
               <option value={car.brand + " " + car.model}>
@@ -386,6 +459,9 @@ const AdminListCarParts = () => {
     {
       title: "Mechanic Name",
       dataIndex: "mechanicName",
+      filters: filterMechanics(mechanics)((i) => i.name),
+      onFilter: (value, record) => record.mechanicName.indexOf(value) === 0,
+      filterSearch: true,
       width: "15%",
       editable: true,
       className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
@@ -396,6 +472,7 @@ const AdminListCarParts = () => {
             defaultValue={text}
             style={{ width: 120 }}
             onChange={(e) => setMechanic(e.target.value)}
+            className="rounded h-7 text-black"
           >
             {mechanics.map((mechanic) => (
               <option value={mechanic.name}>{mechanic.name}</option>
@@ -421,6 +498,7 @@ const AdminListCarParts = () => {
             placeholder="Enter Price"
             value={input.price}
             onChange={onInputChange}
+            className="rounded h-7 text-black"
           ></input>
         ) : (
           <div>{text}</div>
@@ -442,6 +520,7 @@ const AdminListCarParts = () => {
             placeholder="Enter Labor Cost"
             value={input.laborCost}
             onChange={onInputChange}
+            className="rounded h-7 text-black"
           ></input>
         ) : (
           <div>{text}</div>
@@ -449,7 +528,7 @@ const AdminListCarParts = () => {
       },
     },
     {
-      title: "operation",
+      title: "Operation",
       dataIndex: "operation",
       width: "15%",
       className: "bg-black/30 backdrop-filter backdrop-blur-lg text-white",
@@ -520,24 +599,21 @@ const AdminListCarParts = () => {
           <form className="xs:w-96  mb-auto xs:mr-16 bg-black/30 flex-column p-6 rounded-xl backdrop-blur">
             <p className="text-white mt-4"> Car Part</p>
             <select
-              value={carPart}
-              onChange={(e) => setCarPart(e.target.value)}
-              className=" mt-3 w-full rounded h-8 bg-cyan-100"
+              onChange={(e) => setCarPartForDropdown(e.target.value)}
+              className="mt-3 w-full rounded h-8 bg-cyan-100"
             >
               {optionsCarPart}
             </select>
             <p className="text-white mt-4"> Car </p>
             <select
-              value={car}
-              onChange={(e) => setCar(e.target.value)}
+              onChange={(e) => setCarForDropdown(e.target.value)}
               className=" mt-3 w-full rounded h-8 bg-cyan-100"
             >
               {optionsCar}
             </select>
             <p className="text-white mt-4"> Mechanic</p>
             <select
-              value={mechanic}
-              onChange={(e) => setMechanic(e.target.value)}
+              onChange={(e) => setMechanicForDropdown(e.target.value)}
               className=" mt-3 w-full rounded h-8 bg-cyan-100"
             >
               {optionsMechanic}
