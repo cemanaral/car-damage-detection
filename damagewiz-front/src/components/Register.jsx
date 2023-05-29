@@ -36,10 +36,12 @@ function App({ handleLogin }) {
       redirect: "follow",
     };
 
+    alert(requestOptions);
+
     fetch("http://localhost:8080/auth/register", requestOptions)
       .then((response) => response.json())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
+      .then((result) => alert(result))
+      .catch((error) => alert("error", error));
   };
 
   const onInputChange = (e) => {
