@@ -36,7 +36,7 @@ function App({ handleLogin }) {
       redirect: "follow",
     };
 
-    alert(requestOptions);
+    alert(JSON.stringify(requestOptions));
 
     fetch("http://localhost:8080/auth/register", requestOptions)
       .then((response) => response.json())
